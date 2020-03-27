@@ -78,6 +78,9 @@ celerybeat-schedule
 *.iml
 *.ipr
 
+# virtual environment
+venv/
+
 
 
 
