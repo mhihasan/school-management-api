@@ -78,8 +78,11 @@ celerybeat-schedule
 *.iml
 *.ipr
 
-# virtual environment
+# Virtual environment
 venv/
+
+# Environment Variable file
+.env
 
 
 
