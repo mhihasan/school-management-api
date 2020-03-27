@@ -1,0 +1,227 @@
+[
+  {
+    "model": "accounting.accountgroup",
+    "pk": 1,
+    "fields": {
+      "code": "1",
+      "name": "Cash and Cash Equivalent",
+      "category": 0
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 2,
+    "fields": {
+      "code": "2",
+      "name": "Account Receivable",
+      "category": 0
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 3,
+    "fields": {
+      "code": "3",
+      "name": "Inventory",
+      "category": 0
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 4,
+    "fields": {
+      "code": "4",
+      "name": "Other Current Assets",
+      "category": 0
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 5,
+    "fields": {
+      "code": "5",
+      "name": "Fixed Assets",
+      "category": 1
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 6,
+    "fields": {
+      "code": "6",
+      "name": "Accumulated Depreciation",
+      "category": 1
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 7,
+    "fields": {
+      "code": "7",
+      "name": "Other Non-current Assets",
+      "category": 1
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 8,
+    "fields": {
+      "code": "8",
+      "name": "Account Payable",
+      "category": 2
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 9,
+    "fields": {
+      "code": "9",
+      "name": "Provision for income Taxes",
+      "category": 2
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 10,
+    "fields": {
+      "code": "10",
+      "name": "Other Current Liabilities",
+      "category": 2
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 11,
+    "fields": {
+      "code": "11",
+      "name": "Long Term Liabilities",
+      "category": 3
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 12,
+    "fields": {
+      "code": "12",
+      "name": "Dividends",
+      "category": 3
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 13,
+    "fields": {
+      "code": "13",
+      "name": "Share Capital",
+      "category": 4
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 14,
+    "fields": {
+      "code": "14",
+      "name": "Shareholder\u2019s Equity",
+      "category": 4
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 15,
+    "fields": {
+      "code": "15",
+      "name": "Revenue",
+      "category": 5
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 16,
+    "fields": {
+      "code": "16",
+      "name": "Other Operating Income",
+      "category": 6
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 17,
+    "fields": {
+      "code": "17",
+      "name": "Non-operating Income",
+      "category": 7
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 18,
+    "fields": {
+      "code": "18",
+      "name": "Cost of Goods Sold",
+      "category": 8
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 19,
+    "fields": {
+      "code": "19",
+      "name": "Direct Labor",
+      "category": 8
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 20,
+    "fields": {
+      "code": "20",
+      "name": "Direct Overhead",
+      "category": 8
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 21,
+    "fields": {
+      "code": "21",
+      "name": "Administrative Expense",
+      "category": 9
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 22,
+    "fields": {
+      "code": "22",
+      "name": "Selling Expense ",
+      "category": 9
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 23,
+    "fields": {
+      "code": "23",
+      "name": "Non-operating Expenses",
+      "category": 10
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 24,
+    "fields": {
+      "code": "24",
+      "name": "Income Taxes",
+      "category": 11
+    }
+  },
+  {
+    "model": "accounting.accountgroup",
+    "pk": 25,
+    "fields": {
+      "code": "25",
+      "name": "Others",
+      "category": 12
+    }
+  }
+]
