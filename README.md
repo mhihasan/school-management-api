@@ -1,5 +1,4 @@
-1. Run `docker-compose build` to build the docker images
-2. Run` docker-compose up` to start the app
+1. Run `docker-compose up -d --build` to start the app
 
 ## Development workflow
     1. Create a feature branch i.e. feature/<new_feature> for every new feature.
