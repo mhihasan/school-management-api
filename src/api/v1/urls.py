@@ -3,7 +3,7 @@ from rest_framework.routers import DefaultRouter
 
 from src.organization import views as organization
 from src.user import views as user
-from src.accounting import api as acc
+from src.accounting import views as acc
 
 from django.urls import include, path
 from rest_framework import routers
