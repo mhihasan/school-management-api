@@ -8,7 +8,8 @@ activate_venv: requirements.txt
 update_pip: venv
 	venv/bin/pip install -Ur requirements.txt
 
-run_dev:
+run_dev: venv
+	python3 manage.py migrate
 	python3 manage.py runserver 0.0.0.0:8001
 
 open_api:
