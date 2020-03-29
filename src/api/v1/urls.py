@@ -1,6 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
+from src.api.v1.jwt import MyTokenObtainPairView
 from src.organization import views as organization
 from src.user import views as user
 from src.accounting import views as acc
@@ -93,7 +94,7 @@ urlpatterns = [
     ),
     # query_params: payment_id=x for credit/debit voucher, journal_id=x for journal voucher
     path("get-voucher/", acc.VoucherView.as_view({"get": "list"}), name="get-voucher"),
-    path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("token/", MyTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("", include(router.urls)),
 ]
