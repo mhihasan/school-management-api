@@ -1,7 +1,7 @@
 ## Development Using Virtual Environment
-    1. Run `make venv`.
-    2. Run `run_dev`.
-    3. Run `run open_api`.
+    1. Run `make venv` to install and activate virtual environment.
+    2. Run `run_dev` to start development server.
+    3. (Optional) To open API Documentation, run `run open_api`.
     
 ## Development Using Docker
     1. Run `docker-compose up -d --build` to start the app
