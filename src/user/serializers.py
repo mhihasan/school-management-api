@@ -2,6 +2,7 @@ from rest_framework.fields import CharField, SerializerMethodField
 from rest_framework.serializers import ModelSerializer
 
 from src.user.models import User
+from src.user.models import StudentRegistrationForm
 
 
 class UserSerializer(ModelSerializer):
@@ -24,3 +25,11 @@ class UserSerializer(ModelSerializer):
 
     def get_name(self, ob):
         return ob.get_full_name()
+
+
+class StudentRegistrationFormSerializer(ModelSerializer):
+    class META:
+        model = StudentRegistrationForm
+        fields = "__all__"
+    
+

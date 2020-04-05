@@ -95,6 +95,33 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+
+
+
+class StudentRegistrationForm(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    student_name = models.CharField(name="Name for Registration(student)",max_length=50, blank=False)
+    Birth_date = models.DateField()
+    student_district = models.CharField(max_length=20)
+    student_thana = models.CharField(max_length=20)
+    student_village = models.CharField(max_length=50)
+    student_optional_address = models.TextField(max_length=200, help_text="can be included post, word, house no")
+
+    Birth_date = models.DateField()
+    gaurdian_type = models.PositiveIntegerField(default=1)#one for parents 2 for others
+    gaurdian_name = models.CharField(name="can be father or relative", max_length=50, blank=False)
+    gaurdian_district = models.CharField(max_length=20, blank=True)
+    gaurdian_thana = models.CharField(max_length=20, blank=True)
+    gaurdian_village = models.CharField(max_length=50, blank=True)
+    gaudian_occupation = models.CharField(max_length=40, blank=True)
+    gaurdian_mobile = models.CharField(max_length=14, blank=False)
+    gaurdian_optional_address = models.TextField(max_length=200,help_text="can be included post, word, house no")
+    guardian_relationship = models.CharField(max_length=50, blank=False)
+   
+
+
+
+
