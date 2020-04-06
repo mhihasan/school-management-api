@@ -118,19 +118,19 @@ class TeacherRecruitment(models.Model):
     temporaryStartingDate = models.DateTimeField(auto_now_add=True)
     recruitingSalary = models.IntegerField(
         help_text=_("Salary in BDT , at the time of recruiting")
-        blank=False,
     )
     salaryIncrementRate = models.PositiveIntegerField()
     salaryIncrementDate = models.DateTimeField(auto_now_add=False)
 
     parmanentStartingDate = models.DateTimeField(auto_now_add=False)
     additionalResponsibilityHonor = models.CharField(
-        help_text=_("additional work beside his/her owned work")
+        help_text=_("additional work beside his/her owned work"),
         blank=True,
+        max_length=300
     )
     resigningDate = models.DateTimeField(auto_now_add=False)
     commnetAboutTeacher = models.TextField(
-        help_text=_("Comment about the teacher from admin side, max 200 char")
+        help_text=_("Comment about the teacher from admin side, max 200 char"),
         max_length=200,
         blank=True,
     )
@@ -155,22 +155,22 @@ class StudentRegistrationForm(models.Model):
         name="can be father or relative", 
         max_length=50, 
         blank=False
-        )
+    )
     gaurdian_district = models.CharField(max_length=20, blank=True)
     gaurdian_thana = models.CharField(max_length=20, blank=True)
     gaurdian_village = models.CharField(max_length=50, blank=True)
     gaudian_occupation = models.CharField(max_length=40, blank=True)
-    gaurdian_mobile = models.CharField(max_length=14, blank=False)
+    gaurdian_mobile = models.CharField(max_length=14)
     gaurdian_optional_address = models.TextField(
         max_length=200,
         help_text=_("can be included post, word, house no")
-        )
-    guardian_relationship = models.CharField(max_length=50, blank=False)
+    )
+    guardian_relationship = models.CharField(max_length=50)
     
 
     class StudentAssignmentToTeacher(models.Model):
         teacherId = models.ForeignKey(TeacherRecruitment,on_delete=models.CASCADE, null=False)
-        studentId = models.ForeignKey(StudentRegistrationForm, on_delete=models.CASCADE, null=False)
+        studentId = models.PositiveIntegerField(_("student unique id"))
         created_at = models.DateTimeField(default=timezone.now)
         updated_at = models.DateTimeField(_("at the time of assigning to another teacher"),default=timezone.now)
 
