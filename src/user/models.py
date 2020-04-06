@@ -100,6 +100,42 @@ class Student(models.Model):
 
 
 
+class TeacherRecruitment(models.Model):
+    teacherName = models.CharField(
+        blank=False,
+        help_text=_("Teacher Full name, name with title should be unique, used at time time of student assigning"),
+        max_length=60, 
+        unique=True
+    )
+    teacherDistrict = models.CharField(max_length=50)
+    teacherUpozilla = models.CharField(max_length=70)
+    teacherMobileNo = models.CharField(max_length=20, blank=False)
+    teacherVillage = models.CharField(
+        max_length=100,
+        help_text=_("100 character , road no, vaillage name and housing no"),
+        blank=True
+    )
+    temporaryStartingDate = models.DateTimeField(auto_now_add=True)
+    recruitingSalary = models.IntegerField(
+        help_text=_("Salary in BDT , at the time of recruiting")
+        blank=False,
+    )
+    salaryIncrementRate = models.PositiveIntegerField()
+    salaryIncrementDate = models.DateTimeField(auto_now_add=False)
+
+    parmanentStartingDate = models.DateTimeField(auto_now_add=False)
+    additionalResponsibilityHonor = models.CharField(
+        help_text=_("additional work beside his/her owned work")
+        blank=True,
+    )
+    resigningDate = models.DateTimeField(auto_now_add=False)
+    commnetAboutTeacher = models.TextField(
+        help_text=_("Comment about the teacher from admin side, max 200 char")
+        max_length=200,
+        blank=True,
+    )
+
+
 
 class StudentRegistrationForm(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -108,18 +144,36 @@ class StudentRegistrationForm(models.Model):
     student_district = models.CharField(max_length=20)
     student_thana = models.CharField(max_length=20)
     student_village = models.CharField(max_length=50)
-    student_optional_address = models.TextField(max_length=200, help_text="can be included post, word, house no")
+    student_optional_address = models.TextField(
+        max_length=200, 
+        help_text=_("can be included post, word, house no")
+        )
 
     Birth_date = models.DateField()
     gaurdian_type = models.PositiveIntegerField(default=1)#one for parents 2 for others
-    gaurdian_name = models.CharField(name="can be father or relative", max_length=50, blank=False)
+    gaurdian_name = models.CharField(
+        name="can be father or relative", 
+        max_length=50, 
+        blank=False
+        )
     gaurdian_district = models.CharField(max_length=20, blank=True)
     gaurdian_thana = models.CharField(max_length=20, blank=True)
     gaurdian_village = models.CharField(max_length=50, blank=True)
     gaudian_occupation = models.CharField(max_length=40, blank=True)
     gaurdian_mobile = models.CharField(max_length=14, blank=False)
-    gaurdian_optional_address = models.TextField(max_length=200,help_text="can be included post, word, house no")
+    gaurdian_optional_address = models.TextField(
+        max_length=200,
+        help_text=_("can be included post, word, house no")
+        )
     guardian_relationship = models.CharField(max_length=50, blank=False)
+    
+
+    class StudentAssignmentToTeacher(models.Model):
+        teacherId = models.ForeignKey(TeacherRecruitment,on_delete=models.CASCADE, null=False)
+        studentId = models.ForeignKey(StudentRegistrationForm, on_delete=models.CASCADE, null=False)
+        created_at = models.DateTimeField(default=timezone.now)
+        updated_at = models.DateTimeField(_("at the time of assigning to another teacher"),default=timezone.now)
+
    
 
 
