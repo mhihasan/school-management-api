@@ -5,6 +5,7 @@ from src.api.v1.jwt import MyTokenObtainPairView
 from src.organization import views as organization
 from src.user import views as user
 from src.user.views import StudentRegistrationViewsets
+from sec.user.views import TeacherRecruitmentViewsets
 from src.accounting import views as acc
 
 from django.urls import include, path
@@ -53,6 +54,7 @@ router.register("aged-payable", acc.AgedPayableView, "aged-payable")
 
 #student and teacher
 router.register('studentRegistration', StudentRegistrationViewsets)
+router.register('teacherRecruitment', TeacherRecruitmentViewsets)
 
 
 

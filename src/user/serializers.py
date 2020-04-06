@@ -3,6 +3,8 @@ from rest_framework.serializers import ModelSerializer
 
 from src.user.models import User
 from src.user.models import StudentRegistrationForm
+from src.user.models import TeacherRecruitment
+from src.user.models import StudentAssignmentToTeacher
 
 
 class UserSerializer(ModelSerializer):
@@ -32,4 +34,7 @@ class StudentRegistrationFormSerializer(ModelSerializer):
         model = StudentRegistrationForm
         fields = "__all__"
     
-
+class TeacherRecruitmentSerializer(ModelSerializer):
+    class META:
+        model = TeacherRecruitment
+        fields = "__all__"

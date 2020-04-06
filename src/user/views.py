@@ -7,10 +7,12 @@ from src.api.v1.permissions import ModelPermissions
 from src.api.v1.viewsets import BaseViewSet
 from src.user.serializers import UserSerializer
 from src.user.serializers import StudentRegistrationFormSerializer
+from src.user.serializers import TeacherRecruitmentSerializer
 
 # Here imported model
 from src.user.models import User
 from src.user.models import StudentRegistrationForm
+from src.user.models import TeacherRecruitment
 
 
 class UserViewSet(BaseViewSet):
@@ -39,3 +41,7 @@ class UserViewSet(BaseViewSet):
 class StudentRegistrationViewsets(viewsets.ModelViewSet):
     queryset = StudentRegistrationForm.objects.all()
     serializer_class = StudentRegistrationFormSerializer
+
+class TeacherRecruitmentViewsets(viewsets.ModelViewSet):
+    queryset = TeacherRecruitment.objects.all()
+    serializer_class = TeacherRecruitmentSerializer
