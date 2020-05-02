@@ -2,8 +2,8 @@ from rest_framework.fields import CharField, SerializerMethodField
 from rest_framework.serializers import ModelSerializer
 
 from src.user.models import User
-from src.user.models import StudentRegistrationForm
-from src.user.models import TeacherRecruitment
+from src.user.models import students
+from src.user.models import Teachers
 
 
 class UserSerializer(ModelSerializer):
@@ -17,7 +17,7 @@ class UserSerializer(ModelSerializer):
         fields = "__all__"
 
     def get_organization_text(self, ob):
-        return ob.cƒompany.name
+        return ob.company.name
 
     def get_role_text(self, ob):
         if ob.role:
@@ -28,12 +28,12 @@ class UserSerializer(ModelSerializer):
         return ob.get_full_name()
 
 
-class StudentRegistrationFormSerializer(ModelSerializer):
+class students_serializer(ModelSerializer):
     class META:
-        model = StudentRegistrationForm
+        model = students
         fields = "__all__"
     
-class TeacherRecruitmentSerializer(ModelSerializer):
+class teachers_serializer(ModelSerializer):
     class META:
-        model = TeacherRecruitment
+        model = Teachers
         fields = "__all__"
