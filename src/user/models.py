@@ -5,7 +5,7 @@ from django.core.mail import send_mail
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-
+from jsonfield import JSONField
 from src.organization.models import Organization
 
 
@@ -95,6 +95,88 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+
+
+class Teachers(models.Model):
+    name = models.CharField(
+        blank=False,
+        help_text=_("Teacher Full name, name with title should be unique, used at time time of student assigning"),
+        max_length=60, 
+        unique=True
+    )
+    designation = models.CharField(max_length=100,blank=False)
+    email = models.EmailField(blank=True)
+    mobile = models.CharField(max_length=30, blank=False)
+    address = JSONField()
+
+    education_history = JSONField()
+    national_id = models.PositiveIntegerField(blank=True)
+    previous_experience = models.CharField(max_length=500, help_text=_("teacher previous working experience"))
+    
+    temporary_starting_date = models.DateTimeField(auto_now_add=True)
+
+    #salary
+    recruiting_salary = models.IntegerField(
+        help_text=_("Salary in BDT , at the time of recruiting")
+    )
+    salary_increment = models.PositiveIntegerField()
+    salary_increment_date = models.DateField(auto_now_add=False)
+
+    permanent_starting_date = models.DateTimeField(auto_now_add=False)
+    additional_responsibilityHonor = models.CharField(
+        help_text=_("additional work beside his/her owned work"),
+        blank=True,
+        max_length=300
+    )
+    additional_responsibilities = models.CharField(max_length=300, help_text=_("additional responsibilities , seprated"), blank=True)
+    
+    resigning_date = models.DateTimeField(auto_now_add=False, blank= _(""))
+    commnet_about_teacher = models.TextField(
+        help_text=_("Comment about the teacher from admin side, max 200 char"),
+        max_length=200,
+        blank=True,
+    )
+
+
+class students(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(help_text=_("Name for Registration(student)"),max_length=50, blank=False)
+    Birth_date = models.DateField()
+    father_name = models.CharField(help_text=_("Father name of student"), max_length=50, blank=False)
+
+    #address
+    present_address = JSONField(blank=True, null=True)
+    permanent_address = JSONField(blank=True, null=True)
+    #guardian information
+    guardian_information = JSONField(blank=True, null=True)
+
+    #examiner information 
+    examiner_name = models.CharField(help_text=_("Name for examiner(student)"),max_length=50, blank=True)
+    result = models.CharField(help_text=_("examiner_result"), max_length=50)
+    admission_fee = models.PositiveIntegerField(_("admission fee"), blank=False, null=False)
+    monthly_fee = models.PositiveIntegerField(_("student monthly fee"), blank=False)
+    boarding_fee = models.PositiveIntegerField(_("student boarding fee"), blank=True, null=True)
+    other_fees = JSONField(null=True)
+
+    #additional information
+    other_information = JSONField()
+
+    #image or file  
+
+
+    
+
+    class StudentAssignmentToTeacher(models.Model):
+        teacherId = models.ForeignKey(Teachers,on_delete=models.CASCADE, null=False)
+        studentId = models.PositiveIntegerField(_("student unique id"))
+        created_at = models.DateTimeField(default=timezone.now)
+        updated_at = models.DateTimeField(_("at the time of assigning to another teacher"),default=timezone.now)
+
+   
+
+
+
+

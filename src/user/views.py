@@ -1,11 +1,18 @@
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import render
+from rest_framework import viewsets
 
 # Create your views here.
 from src.api.v1.permissions import ModelPermissions
 from src.api.v1.viewsets import BaseViewSet
-from src.user.models import User
 from src.user.serializers import UserSerializer
+from src.user.serializers import students_serializer
+from src.user.serializers import teachers_serializer
+
+# Here imported model
+from src.user.models import User
+from src.user.models import students
+from src.user.models import Teachers
 
 
 class UserViewSet(BaseViewSet):
@@ -30,3 +37,11 @@ class UserViewSet(BaseViewSet):
     def perform_update(self, serializer):
         serializer.validated_data.pop("password", None)
         return super().perform_update(serializer)
+
+class students_viewset(viewsets.ModelViewSet):
+    queryset = students.objects.all()
+    serializer_class = students_serializer
+
+class teachers_viewset(viewsets.ModelViewSet):
+    queryset = Teachers.objects.all()
+    serializer_class = teachers_serializer

@@ -4,6 +4,8 @@ from rest_framework.routers import DefaultRouter
 from src.api.v1.jwt import MyTokenObtainPairView
 from src.organization import views as organization
 from src.user import views as user
+from src.user.views import students_viewset
+from src.user.views import teachers_viewset
 from src.accounting import views as acc
 
 from django.urls import include, path
@@ -49,6 +51,11 @@ router.register("due-billings", acc.DueBillingView, "due-billing-entry")
 router.register("debit-note-entries", acc.DebitNoteEntryViewSet, "debit-note-entry")
 
 router.register("aged-payable", acc.AgedPayableView, "aged-payable")
+
+#student and teacher
+router.register('students', students_viewset)
+router.register('teachers', teachers_viewset)
+
 
 
 urlpatterns = [
