@@ -5,6 +5,8 @@ from src.api.v1.jwt import MyTokenObtainPairView
 from src.organization import views as organization
 from src.user import views as user
 from src.accounting import views as acc
+from src.user.views import StudentViewSet
+
 
 from django.urls import include, path
 from rest_framework import routers
@@ -17,6 +19,7 @@ router.register("organizations", organization.OrganizationViewSet, "organization
 
 # User
 router.register("users", user.UserViewSet, "user")
+router.register("student", StudentViewSet)
 
 # GL
 router.register("account-groups", acc.AccountGroupViewSet, "account-group")

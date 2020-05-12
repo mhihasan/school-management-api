@@ -83,7 +83,6 @@ venv/
 
 # Environment Variable file
 .env
-
-
+.vscode
 
 

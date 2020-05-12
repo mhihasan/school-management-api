@@ -3,10 +3,15 @@ from django.contrib.auth.models import PermissionsMixin, UserManager
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.core.mail import send_mail
 from django.db import models
+import jsonfield
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from src.organization.models import Organization
+
+
+def upload_path(instance, filename):
+    return '/'.join(['student', str(instance.title), filename])
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -98,3 +103,28 @@ class Teacher(models.Model):
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(help_text=_("Name for Registration(student)"),max_length=50)
+    birth_date = models.DateField(blank=True, null=True)
+    father_name = models.CharField(help_text=_("Father name of student"), max_length=50, blank=False)
+
+    # address
+    present_address = jsonfield.JSONField(blank=True, null=True)
+    permanent_address = jsonfield.JSONField(blank=True, null=True)
+    # guardian information
+    guardian_information = jsonfield.JSONField(blank=True, null=True)
+
+    # examiner information 
+    examiner_name = models.CharField(help_text=_("Name for examiner(student)"), max_length=50, blank=True)
+    result = models.CharField(help_text=_("examiner_result"), max_length=50)
+    admission_fee = models.PositiveIntegerField(help_text=_("admission fee"), blank=False, null= False)
+    monthly_fee = models.PositiveIntegerField(_("student monthly fee"), blank=False)
+    boarding_fee = models.PositiveIntegerField(_("student boarding fee"), blank=True, null=True)
+    other_fees = jsonfield.JSONField(null=True)
+
+    # additional information
+    other_information = jsonfield.JSONField()
+
+    # image or file
+    image = models.ImageField(blank=True, null=True, upload_to=upload_path)
+    
+
