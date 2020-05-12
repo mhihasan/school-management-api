@@ -103,9 +103,9 @@ class Teacher(models.Model):
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(help_text=_("Name for Registration(student)"),max_length=50)
+    name = models.CharField(help_text=_("Name for Registration(student)"), max_length=50, null=True)
     birth_date = models.DateField(blank=True, null=True)
-    father_name = models.CharField(help_text=_("Father name of student"), max_length=50, blank=False)
+    father_name = models.CharField(help_text=_("Father name of student"), max_length=50, blank=True, null=True)
 
     # address
     present_address = jsonfield.JSONField(blank=True, null=True)
@@ -115,9 +115,9 @@ class Student(models.Model):
 
     # examiner information 
     examiner_name = models.CharField(help_text=_("Name for examiner(student)"), max_length=50, blank=True)
-    result = models.CharField(help_text=_("examiner_result"), max_length=50)
-    admission_fee = models.PositiveIntegerField(help_text=_("admission fee"), blank=False, null= False)
-    monthly_fee = models.PositiveIntegerField(_("student monthly fee"), blank=False)
+    result = models.CharField(help_text=_("examiner_result"), max_length=50, blank=True, null=True)
+    admission_fee = models.PositiveIntegerField(help_text=_("admission fee"), blank=False, default=0)
+    monthly_fee = models.PositiveIntegerField(_("student monthly fee"), blank=False, default=0)
     boarding_fee = models.PositiveIntegerField(_("student boarding fee"), blank=True, null=True)
     other_fees = jsonfield.JSONField(null=True)
 
