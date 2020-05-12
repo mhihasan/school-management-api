@@ -84,6 +84,6 @@ venv/
 # Environment Variable file
 .env
 
-
-
-
+# application folders
+static/
+media/

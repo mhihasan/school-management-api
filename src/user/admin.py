@@ -6,15 +6,14 @@ from django.contrib.admin.utils import unquote
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.admin import sensitive_post_parameters_m
 from django.contrib.auth.forms import AdminPasswordChangeForm
-from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponseRedirect
 from django.template.response import TemplateResponse
 from django.urls import path, reverse
+from django.utils.translation import gettext, gettext_lazy as _
 
 from src.user.form import UserChangeForm, UserCreationForm
 from src.user.models import User
-from django.utils.translation import gettext, gettext_lazy as _
 
 
 class CustomUserAdmin(admin.ModelAdmin):

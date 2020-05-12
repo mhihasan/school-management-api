@@ -2,8 +2,8 @@ from datetime import datetime
 
 from django.db import models
 
-from src.base.utils import phone_regex
 from src.base.models import TimeStampedModel
+from src.base.utils import phone_regex
 
 
 class Organization(TimeStampedModel):

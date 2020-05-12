@@ -1,7 +1,6 @@
-from rest_framework.fields import SerializerMethodField
 from rest_framework import serializers
+from rest_framework.fields import SerializerMethodField
 
-from src.api.v1.validators import UniqueTogetherFieldValidator
 from src.accounting.models import (
     AccountGroup,
     Account,
@@ -10,6 +9,7 @@ from src.accounting.models import (
     Invoice,
     Payment,
 )
+from src.api.v1.validators import UniqueTogetherFieldValidator
 
 
 class TransactionSerializer(serializers.ModelSerializer):
@@ -372,7 +372,7 @@ class COASerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Account
-        fields = "__all__"
+        fields = ["name", "group"]
         read_only_fields = ["date_created", "organization"]
         validators = [
             UniqueTogetherFieldValidator(
