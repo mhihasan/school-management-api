@@ -1,11 +1,8 @@
 from django import forms
 from django.contrib.auth import password_validation
-
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-
 from django.forms import EmailField
 from django.utils.translation import gettext_lazy as _
-
 
 from src.user.models import User
 

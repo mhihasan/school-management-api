@@ -3,8 +3,8 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.viewsets import ModelViewSet
 
 from src.api.v1.permissions import IsAdminStaff, ModelPermissions
-from src.organization.serializers import OrganizationSerializer
 from src.organization.models import Organization
+from src.organization.serializers import OrganizationSerializer
 
 
 class OrganizationViewSet(ModelViewSet):

@@ -1,6 +1,6 @@
+from datetime import datetime
 from decimal import Decimal
 
-from datetime import datetime
 from django.db import models
 from django.db.models import Sum, F
 from django.db.models.functions import Coalesce

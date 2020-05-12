@@ -1,5 +1,4 @@
 from django.contrib.auth.hashers import make_password
-from django.shortcuts import render
 
 # Create your views here.
 from src.api.v1.permissions import ModelPermissions

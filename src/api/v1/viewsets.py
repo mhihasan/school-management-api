@@ -1,7 +1,7 @@
-from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet
-from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.viewsets import ModelViewSet
+
 from .permissions import ModelPermissions, IsStaff
 
 
@@ -36,8 +36,3 @@ class BaseViewSet(ModelViewSet):
     def get_queryset(self):
         organization_id = self.get_organization_id()
         return super().get_queryset().filter(organization_id=organization_id)
-
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)

@@ -1,0 +1,35 @@
+sudo: required
+
+language: python
+dist: xenial
+
+python:
+  - "3.7"
+
+services:
+  - postgresql
+
+install:
+  - pip install -r requirements/dev.txt
+
+script:
+  - pytest -x
+
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: pytest -x
+    on:
+      branch: master
+  - provider: script
+    skip_cleanup: true
+    script: pytest -x
+    on:
+      branch: develop
+
+branches:
+  - master
+  - develop
+
+addons:
+  postgresql: "12.2"
