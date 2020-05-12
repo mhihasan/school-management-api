@@ -4,11 +4,12 @@ venv: activate_venv
 activate_venv: requirements/dev.txt
 	test -d venv || python3 -m venv venv
 	venv/bin/pip install -U pip
-	venv/bin/pip install -Ur requirements/local.txt
+	venv/bin/pip install -Ur requirements/dev.txt
 	touch venv/bin/activate
 
-update_pip: venv
-	venv/bin/pip install -Ur requirements.txt
+install_pip: venv
+	venv/bin/pip install -Ur requirements/dev.txt
+	pre-commit install
 
 open_api:
 	open http://0.0.0.0:8001/swagger/
