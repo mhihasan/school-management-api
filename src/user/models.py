@@ -122,7 +122,7 @@ class Student(models.Model):
     other_fees = jsonfield.JSONField(null=True)
 
     # additional information
-    other_information = jsonfield.JSONField()
+    other_information = jsonfield.JSONField(null=True)
 
     # image or file
     image = models.ImageField(blank=True, null=True, upload_to=upload_path)
