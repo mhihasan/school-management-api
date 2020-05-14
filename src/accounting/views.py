@@ -76,6 +76,17 @@ class AccountViewSet(BaseViewSet):
             request.data.update(**account_data)
         return super().create(request, *args, **kwargs)
 
+    def get_queryset(self):
+        account_group_id = {
+            "revenue": REVENUE_ACCOUNT_GROUP_ID,
+            "expense": GENERAL_EXPENSE_GROUP_ID,
+        }.get(self.request.query_params.get("account_group"))
+
+        qs = super().get_queryset()
+        if account_group_id:
+            qs = qs.filter(group_id=account_group_id)
+        return qs
+
 
 # class COAViewSet(BaseViewSet):
 #     queryset = (
