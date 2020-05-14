@@ -7,7 +7,7 @@ def valid_staff(user, superuser=False, admin=False):
     if superuser:
         return user.is_superuser
     if admin:
-        return user.is_admin or user.is_superuser
+        return user.is_admin_staff or user.is_superuser
     if user.organization is None:
         return False
     return True

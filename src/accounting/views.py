@@ -67,12 +67,11 @@ class AccountViewSet(BaseViewSet):
         }
 
     def create(self, request, *args, **kwargs):
-        print("us", self.request.user)
         account_data = {
             "revenue": self._account_data(REVENUE_ACCOUNT_GROUP_ID, CREDIT),
             "expense": self._account_data(GENERAL_EXPENSE_GROUP_ID, DEBIT),
         }.get(request.query_params.get("account_group"))
-        print("acc", account_data)
+
         if account_data:
             request.data.update(**account_data)
         return super().create(request, *args, **kwargs)

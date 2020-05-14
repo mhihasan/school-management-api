@@ -29,5 +29,8 @@ stop_prod:
 migrate_db:
 	docker-compose -f prod.yml run web python3 manage.py migrate
 
+createsuperuser:
+	docker-compose -f dev.yml run web python manage.py createsuperuser
+
 start_pg:
 	docker run --rm   --name pg-docker -e POSTGRES_PASSWORD=postgres -d -p 5432:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data  postgres:12.2
