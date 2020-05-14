@@ -2,7 +2,7 @@ from datetime import datetime
 from decimal import Decimal
 
 from django.db import models
-from django.db.models import Sum, F
+from django.db.models import Sum, F, Index
 from django.db.models.functions import Coalesce
 
 from src.accounting.constants import (
@@ -16,7 +16,7 @@ from src.accounting.constants import (
 from src.base.models import TimeStampedModel, TimeStampIndexedModel
 from src.organization.models import Organization
 from src.user.models import Student
-from src.user.models import User, Teacher
+from src.user.models import Teacher
 
 
 class AccountGroup(models.Model):
@@ -30,7 +30,7 @@ class AccountGroup(models.Model):
 
 class Account(TimeStampedModel):
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
-    code = models.PositiveIntegerField()
+    gl_code = models.CharField(max_length=20, blank=True)
     name = models.CharField(max_length=32)
     is_active = models.BooleanField(default=True)
     balance_type = models.SmallIntegerField(choices=((1, "Debit"), (-1, "Credit")))
@@ -39,7 +39,8 @@ class Account(TimeStampedModel):
     editable = models.BooleanField(default=True)
 
     class Meta:
-        unique_together = (("organization", "code"),)
+        unique_together = (("organization", "name"),)
+        indexes = [Index(fields=["organization", "name"])]
 
     def __str__(self):
         return self.name
@@ -81,6 +82,9 @@ class Transaction(TimeStampIndexedModel):
     extra_ref = models.CharField(max_length=20, null=True, blank=True)
     is_deleted = models.BooleanField(default=False)
 
+    class Meta:
+        indexes = [Index(fields=["organization", "account"]), Index(fields=["journal"])]
+
     def save(self, *args, **kwargs):
         if self.debit and self.credit:
             raise ValueError("Cannot insert debit and credit both")
@@ -102,6 +106,7 @@ class BaseEntry(TimeStampedModel):
 
     class Meta:
         abstract = True
+        indexes = [Index(fields=["organization", "posted_date"])]
 
 
 class Journal(BaseEntry):
@@ -113,6 +118,9 @@ class Journal(BaseEntry):
     payment = models.OneToOneField(
         "Payment", on_delete=models.CASCADE, null=True, blank=True
     )
+
+    class Meta:
+        indexes = [Index(fields=["invoice"]), Index(fields=["payment"])]
 
     def validate(self):
         debit = credit = 0

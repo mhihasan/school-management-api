@@ -31,7 +31,14 @@ class AccountSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Account
-        fields = "__all__"
+        exclude = ["date_created", "last_updated"]
+        validators = [
+            UniqueTogetherFieldValidator(
+                queryset=Account.objects.all(),
+                fields=("organization", "name"),
+                message="This name is already used. Try another, please.",
+            )
+        ]
 
     def get_group_text(self, ob):
         return ob.group.name
@@ -86,7 +93,7 @@ class JournalEntryReportSerializer(JournalSerializer):
             ] + "-{}".format(ob.invoice.number)
 
         elif ob.payment:
-            number = {0: "COLLECTION", 1: "PAYMENT",}[ob.payment.type] + "-{}".format(
+            number = {0: "COLLECTION", 1: "PAYMENT"}[ob.payment.type] + "-{}".format(
                 ob.payment.number
             )
         else:
@@ -365,6 +372,13 @@ class PaymentSerializer(BasePaymentSerializer):
         return "{} ({})".format(ob.teacher.name, ob.teacher.code)
 
 
+#
+# class AccountSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Account
+#         exclude = ["date_created", "last_updated"]
+
+
 class COASerializer(serializers.ModelSerializer):
     group_text = SerializerMethodField()
     balance_type_text = SerializerMethodField()
@@ -372,13 +386,13 @@ class COASerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Account
-        fields = ["name", "group"]
+        fields = "__all__"
         read_only_fields = ["date_created", "organization"]
         validators = [
             UniqueTogetherFieldValidator(
                 queryset=Account.objects.all(),
-                fields=("organization", "code"),
-                message="This GL code is already used. Try another, please.",
+                fields=("organization", "name"),
+                message="This name is already used. Try another, please.",
             )
         ]
 
@@ -427,7 +441,7 @@ class LedgerSerializer(serializers.ModelSerializer):
             ] + "-{}".format(ob.journal.invoice.number)
 
         elif ob.journal.payment:
-            number = {0: "COLLECTION", 1: "PAYMENT",}[
+            number = {0: "COLLECTION", 1: "PAYMENT"}[
                 ob.journal.payment.type
             ] + "-{}".format(ob.journal.payment.number)
         else:

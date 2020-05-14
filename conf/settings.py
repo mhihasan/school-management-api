@@ -113,9 +113,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
 
@@ -156,4 +156,32 @@ REST_FRAMEWORK = {
     "DATETIME_FORMAT": "%Y-%m-%dT%H:%M:%SZ",
     "DATETIME_INPUT_FORMATS": ["%Y-%m-%d %H:%M:%SZ", "iso-8601"],
     "DATE_INPUT_FORMATS": ["%Y-%m-%d", "iso-8601", "%d/%m/%Y"],
+}
+
+# QueryCount Setting
+# https://github.com/bradmontgomery/django-querycount
+
+# QUERYCOUNT = {
+#     "THRESHOLDS": {
+#         "MEDIUM": 50,
+#         "HIGH": 200,
+#         "MIN_TIME_TO_LOG": 0,
+#         "MIN_QUERY_COUNT_TO_LOG": 1,
+#     },
+#     "IGNORE_REQUEST_PATTERNS": [],
+#     "IGNORE_SQL_PATTERNS": [],
+#     "DISPLAY_DUPLICATES": 5,
+# }
+
+QUERYCOUNT = {
+    "THRESHOLDS": {
+        "MEDIUM": 50,
+        "HIGH": 200,
+        "MIN_TIME_TO_LOG": 0,
+        "MIN_QUERY_COUNT_TO_LOG": 0,
+    },
+    "IGNORE_REQUEST_PATTERNS": [],
+    "IGNORE_SQL_PATTERNS": [],
+    "DISPLAY_DUPLICATES": None,
+    "RESPONSE_HEADER": "X-DjangoQueryCount-Count",
 }

@@ -11,6 +11,6 @@ class UniqueTogetherFieldValidator(UniqueTogetherValidator):
         self.instance = getattr(serializer, "instance", None)
         self.context = getattr(serializer, "context")
 
-    def __call__(self, attrs):
+    def __call__(self, attrs, serializer):
         attrs["organization"] = self.context["request"].user.organization
-        super().__call__(attrs)
+        super().__call__(attrs, serializer)

@@ -17,7 +17,7 @@ router.register("users", user.UserViewSet, "user")
 
 # GL
 # router.register("account-groups", acc.AccountGroupViewSet, "account-group")
-router.register("accounts", acc.COAViewSet, "accounts")
+router.register("accounts", acc.AccountViewSet, "accounts")
 
 # router.register("journal-entries", acc.JournalViewSet, "journal-entry")
 # router.register("transactions", acc.TransactionViewSet, "transaction")

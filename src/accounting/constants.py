@@ -38,6 +38,9 @@ TYPE = (
     (3, "Other Current Assets"),
 )
 
+REVENUE_ACCOUNT_GROUP_ID = 15
+GENERAL_EXPENSE_GROUP_ID = 21
+
 ACCOUNT_TYPE = ((0, "Balance Sheet"), (1, "Income Statement"), (2, "Retained Earnings"))
 
 TRANSACTION_TYPE = ((1, "Debit"), (-1, "Credit"))
