@@ -2,12 +2,12 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.viewsets import ModelViewSet
 
-from .permissions import ModelPermissions, IsAdminStaff
+from .permissions import IsAdminStaff
 
 
 class BaseViewSet(ModelViewSet):
     filter_backends = (SearchFilter, OrderingFilter, DjangoFilterBackend)
-    permission_classes = (IsAdminStaff, ModelPermissions)
+    permission_classes = (IsAdminStaff,)
 
     def get_organization_id(self):
         return (

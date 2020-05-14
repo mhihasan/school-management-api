@@ -1,5 +1,7 @@
-from rest_framework.test import APIClient
+from rest_framework import status
+from rest_framework.test import APIClient, APITestCase
 
+from src.accounting.models import Account
 from src.organization.models import Organization
 from src.user.models import User
 
@@ -12,35 +14,37 @@ def create_org(name):
     return org
 
 
-def create_admin(username, oid="org1"):
-    org = create_org(oid)
+def create_admin(username, password, org_id):
 
-    organizer = User(
+    admin_staff = User(
         username=username,
-        is_active=True,
-        # role=ROLE_DICT['Organizer'],
-        organization=org,
+        password=password,
+        is_admin_staff=True,
+        organization_id=org_id,
     )
-    organizer.set_unusable_password()
-    organizer.save()
-    return organizer
+    admin_staff.set_unusable_password()
+    admin_staff.save()
+    return admin_staff
 
 
-#
-#
-# class TestAccountViewSet(APITestCase):
-#     def setUp(self):
-#         self.admin_username = "teacher1"
-#         self.admin = create_admin(self.admin_username)
+class TestAccountViewSet(APITestCase):
+    fixtures = ["account_group.json"]
 
-# def test_create_account(self):
-#     url = "/api/v1/accounts/?account_group=revenue"
-#     org = Organization.objects.create(name="test")
-#     AccountGroup.objects.create(code=15, name="Revenue", category=9)
-#
-#     data = {"name": "DabApps"}
-#     client.force_authenticate(user=self.admin)
-#     response = self.client.post(url, data, format="json")
-#     self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-#     self.assertEqual(Account.objects.count(), 1)
-#     self.assertEqual(Account.objects.get().name, "DabApps")
+    def setUp(self):
+        self.admin_username = "admin1"
+        self.password = "password"
+        self.organization = create_org("org")
+        self.admin = create_admin(
+            self.admin_username, self.password, org_id=self.organization.id
+        )
+
+    def test_create_account_successfully(self):
+        url = "/api/v1/accounts/?account_group=revenue"
+
+        data = {"name": "Account1", "organization": self.organization.id}
+        client.force_authenticate(user=self.admin)
+        response = client.post(url, data, format="json")
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Account.objects.count(), 1)
+        self.assertEqual(Account.objects.get().name, "Account1")
