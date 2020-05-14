@@ -13,7 +13,7 @@ before_script:
   - pip install docker-compose
 
 script:
-  - docker-compose -f dev.yml exec --it web "python manage.py test && flake8"
+  - docker-compose -f dev.yml run web "python manage.py test && flake8"
 
 deploy:
   - provider: script
