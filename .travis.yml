@@ -7,13 +7,13 @@ python:
   - "3.7"
 
 services:
-  - postgresql
+  - docker
 
-install:
-  - pip install -r requirements/dev.txt
+before_script:
+  - pip install docker-compose
 
 script:
-  - python manage.py test
+  - docker-compose -f dev.yml exec --it web "python manage.py test && flake8"
 
 deploy:
   - provider: script
@@ -30,6 +30,3 @@ deploy:
 branches:
   - master
   - develop
-
-addons:
-  postgresql: "12.2"
