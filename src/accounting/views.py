@@ -38,13 +38,11 @@ class AccountGroupViewSet(viewsets.ModelViewSet):
 
 
 @method_decorator(
-    name="list", decorator=swagger_auto_schema(manual_parameters=[jwt_header])
+    name="list",
+    decorator=swagger_auto_schema(manual_parameters=[jwt_header, account_group]),
 )
 @method_decorator(
     name="retrieve", decorator=swagger_auto_schema(manual_parameters=[jwt_header])
-)
-@method_decorator(
-    name="update", decorator=swagger_auto_schema(manual_parameters=[jwt_header])
 )
 @method_decorator(
     name="partial_update", decorator=swagger_auto_schema(manual_parameters=[jwt_header])
