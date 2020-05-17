@@ -2,10 +2,12 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenRefreshView
 
+
 from src.accounting import views as acc
 from src.api.v1.jwt import MyTokenObtainPairView
 from src.organization import views as organization
 from src.user import views as user
+from src.user.views import StudentViewSet
 
 router = DefaultRouter()
 
@@ -18,6 +20,9 @@ router.register("users", user.UserViewSet, "user")
 # GL
 # router.register("account-groups", acc.AccountGroupViewSet, "account-group")
 router.register("accounts", acc.AccountViewSet, "accounts")
+
+# student
+router.register("student", StudentViewSet)
 
 # router.register("journal-entries", acc.JournalViewSet, "journal-entry")
 # router.register("transactions", acc.TransactionViewSet, "transaction")
