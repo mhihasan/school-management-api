@@ -4,9 +4,14 @@ from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.core.mail import send_mail
 from django.db import models
 from django.utils import timezone
+from django.contrib.postgres.fields import JSONField
 from django.utils.translation import gettext_lazy as _
 
 from src.organization.models import Organization
+
+
+def upload_path(instance, filename):
+    return "/".join(["student", str(instance.title), filename])
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -20,7 +25,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
         ),
         validators=[username_validator],
-        error_messages={"unique": _("A user with that username already exists."),},
+        error_messages={"unique": _("A user with that username already exists.")},
     )
     first_name = models.CharField(_("first name"), max_length=150, blank=True)
     last_name = models.CharField(_("last name"), max_length=150, blank=True)
@@ -96,5 +101,41 @@ class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 
-class Student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+class Student(User):
+    name = models.CharField(
+        help_text=_("Name for Registration(student)"), max_length=50, null=True
+    )
+    birth_date = models.DateField(blank=True, null=True)
+    father_name = models.CharField(
+        help_text=_("Father name of student"), max_length=50, blank=True, null=True
+    )
+
+    # address
+    present_address = JSONField(blank=True, null=True)
+    permanent_address = JSONField(blank=True, null=True)
+    # guardian information
+    guardian_information = JSONField(blank=True, null=True)
+
+    # examiner information
+    examiner_name = models.CharField(
+        help_text=_("Name for examiner(student)"), max_length=50, blank=True
+    )
+    result = models.CharField(
+        help_text=_("examiner_result"), max_length=50, blank=True, null=True
+    )
+    admission_fee = models.PositiveIntegerField(
+        help_text=_("admission fee"), blank=False, default=0
+    )
+    monthly_fee = models.PositiveIntegerField(
+        _("student monthly fee"), blank=False, default=0
+    )
+    boarding_fee = models.PositiveIntegerField(
+        _("student boarding fee"), blank=True, null=True
+    )
+    other_fees = JSONField(null=True, blank=True)
+
+    # additional information
+    other_information = JSONField(null=True, blank=True)
+
+    # image or file
+    image = models.ImageField(blank=True, null=True, upload_to=upload_path)

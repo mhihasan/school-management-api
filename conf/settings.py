@@ -44,6 +44,7 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "drf_yasg",
     "django_filters",
+    "corsheaders",
 ]
 
 INSTALLED_APPS = (
@@ -63,6 +64,7 @@ INSTALLED_APPS = (
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -139,10 +141,15 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+
 # Customize Authenctication
 # https://docs.djangoproject.com/en/3.0/topics/auth/customizing/#substituting-a-custom-user-model
 
 AUTH_USER_MODEL = "user.User"
+
+CORS_ORIGIN_WHITELIST = ["http://localhost:300", "http://127.0.0.1:3000"]
 
 # Django REST Framework Settings
 
