@@ -40,11 +40,7 @@ ALLOWED_HOSTS = ["*"]
 
 PROJECTS_APPS = ["src.user", "src.organization", "src.accounting"]
 
-THIRD_PARTY_APPS = [
-    "rest_framework",
-    "drf_yasg",
-    "django_filters",
-]
+THIRD_PARTY_APPS = ["rest_framework", "drf_yasg", "django_filters", "corsheaders"]
 
 INSTALLED_APPS = (
     [
@@ -63,6 +59,7 @@ INSTALLED_APPS = (
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",  # for CORS headers
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -185,3 +182,8 @@ QUERYCOUNT = {
     "DISPLAY_DUPLICATES": None,
     "RESPONSE_HEADER": "X-DjangoQueryCount-Count",
 }
+
+
+# Django CORS Header
+# https://pypi.org/project/django-cors-headers/
+CORS_ORIGIN_ALLOW_ALL = True
