@@ -11,7 +11,14 @@ class UserSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        exclude = ["groups", "user_permissions"]
+        exclude = [
+            "groups",
+            "user_permissions",
+            "last_login",
+            "is_staff",
+            "is_active",
+            "date_joined",
+        ]
 
     def get_organization_text(self, ob):
         return ob.organization.name if ob.organization else None

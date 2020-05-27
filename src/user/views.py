@@ -13,13 +13,15 @@ class UserViewSet(BaseViewSet):
 
     def perform_create(self, serializer):
         password = serializer.validated_data.pop("password", None)
-        company = serializer.validated_data.pop("organization", None)
+        organization = serializer.validated_data.pop("organization", None)
 
         if password:
             serializer.validated_data.update({"password": make_password(password)})
 
-        if company and (self.request.user.is_admin() or self.request.user.is_superuser):
-            serializer.validated_data.update({"organization": company})
+        if organization and (
+            self.request.user.is_admin_staff or self.request.user.is_superuser
+        ):
+            serializer.validated_data.update({"organization": organization})
             serializer.save()
         else:
             return super().perform_create(serializer)
