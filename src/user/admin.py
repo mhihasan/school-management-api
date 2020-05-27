@@ -32,7 +32,7 @@ class CustomUserAdmin(admin.ModelAdmin):
         (_("Important dates"), {"fields": ("date_joined",)}),
     )
     add_fieldsets = (
-        (None, {"classes": ("wide",), "fields": ("email", "password1", "password2"),}),
+        (None, {"classes": ("wide",), "fields": ("email", "password1", "password2")}),
         (
             _("Personal info"),
             {"fields": (("first_name", "last_name"), ("organization",))},
@@ -90,7 +90,7 @@ class CustomUserAdmin(admin.ModelAdmin):
         if user is None:
             raise Http404(
                 _("%(name)s object with primary key %(key)r does not exist.")
-                % {"name": self.model._meta.verbose_name, "key": escape(id),}
+                % {"name": self.model._meta.verbose_name, "key": escape(id)}
             )
 
         if request.method == "POST":
@@ -146,5 +146,5 @@ class CustomUserAdmin(admin.ModelAdmin):
 admin.site.register(User, CustomUserAdmin)
 
 admin.site.site_header = "Talib-e-Ilm Admin"
-admin.site.index_title = "Welcome to Integrated Accounting"
+admin.site.index_title = "Welcome to Talib-e-Ilm"
 admin.site.site_title = "Talib-e-Ilm Admin Portal"

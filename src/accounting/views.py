@@ -16,7 +16,6 @@ from src.accounting.models import (
     AccountGroup,
     Account,
 )
-from src.api.documentation import jwt_header
 from src.api.v1.paginations import LimitOffsetUnlimitedDefaultPagination
 from src.api.v1.viewsets import BaseViewSet
 from . import serializers
@@ -38,23 +37,16 @@ class AccountGroupViewSet(viewsets.ModelViewSet):
 
 
 @method_decorator(
-    name="list",
-    decorator=swagger_auto_schema(manual_parameters=[jwt_header, account_group]),
+    name="list", decorator=swagger_auto_schema(manual_parameters=[account_group]),
 )
 @method_decorator(
-    name="retrieve", decorator=swagger_auto_schema(manual_parameters=[jwt_header])
-)
-@method_decorator(
-    name="partial_update", decorator=swagger_auto_schema(manual_parameters=[jwt_header])
-)
-@method_decorator(
-    name="create",
-    decorator=swagger_auto_schema(manual_parameters=[jwt_header, account_group]),
+    name="create", decorator=swagger_auto_schema(manual_parameters=[account_group]),
 )
 class AccountViewSet(BaseViewSet):
     queryset = Account.objects.all()
     serializer_class = serializers.AccountSerializer
     search_fields = ("name",)
+    ordering_fields = ["name"]
 
     def _account_data(self, group_id, balance_type):
         return {

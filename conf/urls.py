@@ -18,7 +18,6 @@ from django.contrib import admin
 from django.urls import path, include
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
-from rest_framework import permissions
 
 from conf.settings import SWAGGER_BASE_URL
 
@@ -28,12 +27,11 @@ schema_view = get_schema_view(
         default_version="v1",
         description="API Documentation",
         terms_of_service="",
-        contact=openapi.Contact(email="hasanuli10@gmail.com"),
+        contact=openapi.Contact(email="hasanuli10@gmal.com"),
         license=openapi.License(name="BSD License"),
     ),
     url=SWAGGER_BASE_URL,
-    public=True,
-    permission_classes=(permissions.AllowAny,),
+    public=False,
 )
 
 urlpatterns = [
@@ -48,7 +46,7 @@ urlpatterns = [
         name="schema-swagger-ui",
     ),
     url(
-        r"^redoc/$", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"
+        r"^redoc/$", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc",
     ),
     path("admin/", admin.site.urls),
     path("api/", include("src.api.urls")),

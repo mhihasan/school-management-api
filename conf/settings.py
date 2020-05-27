@@ -190,3 +190,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # DRF YASG Settings
 SWAGGER_BASE_URL = env("SWAGGER_BASE_URL")
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "JWT": {"type": "apiKey", "name": "Authorization", "in": "header"}
+    }
+}
