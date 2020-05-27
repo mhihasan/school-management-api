@@ -20,6 +20,8 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
+from conf.settings import SWAGGER_BASE_URL
+
 schema_view = get_schema_view(
     openapi.Info(
         title="Talib-e-Ilm API",
@@ -29,6 +31,7 @@ schema_view = get_schema_view(
         contact=openapi.Contact(email="hasanuli10@gmail.com"),
         license=openapi.License(name="BSD License"),
     ),
+    url=SWAGGER_BASE_URL,
     public=True,
     permission_classes=(permissions.AllowAny,),
 )

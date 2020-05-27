@@ -11,7 +11,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
             "first_name": user.first_name or "",
             "last_name": user.last_name or "",
             "is_teacher": user.is_teacher,
-            "is_student": user.is_student,
+            "is_guardian": user.is_guardian,
             "is_admin_staff": user.is_admin_staff,
             "is_superuser": user.is_superuser,
         }

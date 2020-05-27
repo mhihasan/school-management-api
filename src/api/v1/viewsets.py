@@ -12,7 +12,7 @@ class BaseViewSet(ModelViewSet):
     def get_organization_id(self, params):
         if self.request.user.organization_id:
             return self.request.user.organization_id
-        elif self.request.user.is_superuser():
+        elif self.request.user.is_superuser:
             return params.get("organization", None)
         else:
             return 0
