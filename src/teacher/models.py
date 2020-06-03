@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.postgres.fields import JSONField
 from django.contrib.postgres.fields import ArrayField
 from django.utils.translation import gettext_lazy as _
-import datetime
+from datetime import datetime
 
 # imported model
 from src.class_app.models import OrganizationClass, Section
@@ -41,11 +41,13 @@ class Attendance(models.Model):
 
 class Leave(models.Model):
     tid = models.ForeignKey(Teacher, on_delete=models.CASCADE)
-    leave_type_name = models.CharField(help_text=_("sick, marital, others"))
+    leave_type_name = models.CharField(
+        help_text=_("sick, marital, others"), max_length=150
+    )
     days = models.PositiveIntegerField(_("number of days leave"), blank=False)
     starting_date = models.DateField(auto_now_add=False)
     end_date = models.DateField(auto_now_add=False)
-    created_at = models.DateTimeField(default=datetime.now, blank=True)
+    created_at = models.DateTimeField(default=datetime.now(), blank=True)
 
 
 class SubjectAssigned(models.Model):
