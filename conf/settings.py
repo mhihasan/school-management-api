@@ -38,7 +38,13 @@ ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
-PROJECTS_APPS = ["src.user", "src.organization", "src.accounting", "src.teacher"]
+PROJECTS_APPS = [
+    "src.user",
+    "src.organization",
+    "src.accounting",
+    "src.teacher",
+    "src.class_app",
+]
 
 THIRD_PARTY_APPS = ["rest_framework", "drf_yasg", "django_filters", "corsheaders"]
 
