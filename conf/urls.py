@@ -19,7 +19,6 @@ from django.urls import path, include
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 
-from conf.settings import SWAGGER_BASE_URL
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -30,7 +29,6 @@ schema_view = get_schema_view(
         contact=openapi.Contact(email="hasanuli10@gmal.com"),
         license=openapi.License(name="BSD License"),
     ),
-    url=SWAGGER_BASE_URL,
     public=False,
 )
 
