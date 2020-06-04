@@ -88,4 +88,6 @@ venv/
 static/
 media/
 .DS_Store
-.vscode/
+
+# Vscode
+.vscode
