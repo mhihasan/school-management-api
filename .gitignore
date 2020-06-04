@@ -87,3 +87,7 @@ venv/
 # application folders
 static/
 media/
+.DS_Store
+
+# Vscode
+.vscode
