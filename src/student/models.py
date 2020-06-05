@@ -2,7 +2,7 @@ from django.db import models
 from src.class_app.models import OrganizationClass, Section
 from django.contrib.postgres.fields import JSONField
 from django.utils.translation import gettext_lazy as _
-from datetime import datetime
+from django.utils import timezone
 
 # Create your models here.
 
@@ -19,7 +19,7 @@ class Student(models.Model):
         Section, on_delete=models.CASCADE
     )  # section name kodom , kathal
     address = JSONField()
-    created_at = models.DateTimeField(default=datetime.now(), blank=True)
+    created_at = models.DateTimeField(default=timezone.now, blank=True)
 
 
 class Fees(models.Model):
@@ -43,4 +43,4 @@ class GuardianInfo(models.Model):
     email = models.EmailField(_("email address"), max_length=254)
     present_address = JSONField()
     permanent_address = JSONField()
-    created_at = models.DateTimeField(default=datetime.now(), blank=True)
+    created_at = models.DateTimeField(default=timezone.now, blank=True)
