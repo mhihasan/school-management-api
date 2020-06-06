@@ -1,57 +1,56 @@
 from django.db import models
-from django.contrib.postgres.fields import JSONField
-from django.contrib.postgres.fields import ArrayField
+from django.db.models import Index
 from django.utils.translation import gettext_lazy as _
-from datetime import datetime
 
-# imported model
-from src.class_app.models import OrganizationClass, Section
+from src.organization.models import TenantAwareModel
+from src.user.models import User
 
 
-class Teacher(models.Model):
-    first_name = models.CharField(_("first name"), max_length=150, blank=True)
-    last_name = models.CharField(_("last name"), max_length=150, blank=True)
-    email = models.EmailField(_("email address"), max_length=150, blank=False)
-    designation = models.CharField(
-        _("teacher's designation"), max_length=150, blank=True
+class Designation(TenantAwareModel):
+    title = models.CharField(max_length=255)
+
+
+class Teacher(User):
+    EMPLOYEE_TYPE = (
+        (0, "Probation"),
+        (1, "Full-Time"),
+        (3, "Part-time"),
+        (4, "Contractual"),
     )
-    joining = models.DateField(_("date of joining"), blank=False)
+    designation = models.ForeignKey(Designation, on_delete=models.SET_NULL, null=True)
+    employee_type = models.PositiveSmallIntegerField(choices=EMPLOYEE_TYPE, default=1)
+    joining_date = models.DateField(auto_now=True)
+    permanent_joining_date = models.DateField(null=True, blank=True)
+    sections = models.ManyToManyField("course.Section", blank=True)
+
+    class Meta:
+        indexes = [Index(fields=["designation"])]
 
 
 class SalaryInfo(models.Model):
-    tid = models.OneToOneField(Teacher, on_delete=models.CASCADE)
-    temp_salary = models.PositiveIntegerField(_("probational period salary"), default=0)
-    temp_joining_date = models.DateField(
-        _("first joining date"), auto_now=False, auto_now_add=False
+    SALARY_TYPE = (
+        (0, "Probation Period Salary"),
+        (1, "Permanent Salary"),
+        (2, "Festival Bonus"),
+        (3, "Salary Increment"),
     )
-    permanent_salary = models.PositiveIntegerField(_("permanent employee salary"))
-    perm_joining_date = models.DateField(
-        _("permanent joining date"), auto_now=False, auto_now_add=False
-    )
-    extra_responsibility = ArrayField(models.CharField(max_length=200), blank=True)
-    increment = JSONField()
-    increment_history = JSONField()
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+    salary_type = models.PositiveSmallIntegerField(choices=SALARY_TYPE, default=1)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
 
-
-class Attendance(models.Model):
-    tid = models.OneToOneField(Teacher, on_delete=models.CASCADE)
-    date = models.DateField()
-    is_present = models.BooleanField(default=True)
+    class Meta:
+        indexes = [Index(fields=["teacher"])]
 
 
 class Leave(models.Model):
-    tid = models.ForeignKey(Teacher, on_delete=models.CASCADE)
-    leave_type_name = models.CharField(
-        help_text=_("sick, marital, others"), max_length=150
-    )
-    days = models.PositiveIntegerField(_("number of days leave"), blank=False)
-    starting_date = models.DateField(auto_now_add=False)
-    end_date = models.DateField(auto_now_add=False)
-    created_at = models.DateTimeField(default=datetime.now(), blank=True)
+    LEAVE_TYPE = ((0, "Casual"), (1, "Sick"), (2, "Others"))
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+    leave_type = models.PositiveSmallIntegerField(choices=LEAVE_TYPE, default=0)
+    days = models.PositiveSmallIntegerField(_("number of days leave"), default=1)
+    start_date = models.DateField()
+    end_date = models.DateField()
 
-
-class SubjectAssigned(models.Model):
-    tid = models.OneToOneField(Teacher, on_delete=models.CASCADE)
-    name = models.CharField(max_length=150, blank=False)
-    class_id = models.ForeignKey(OrganizationClass, on_delete=models.CASCADE)
-    section_id = models.ForeignKey(Section, on_delete=models.CASCADE)
+    class Meta:
+        indexes = [Index(fields=["teacher"])]

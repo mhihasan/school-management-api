@@ -1,46 +1,49 @@
 from django.db import models
-from src.class_app.models import OrganizationClass, Section
+from django.db.models import Index
+
+from src.base.utils import phone_regex
+
 from django.contrib.postgres.fields import JSONField
 from django.utils.translation import gettext_lazy as _
-from django.utils import timezone
 
-# Create your models here.
-
-
-class Student(models.Model):
-    first_name = models.CharField(_("first name"), max_length=150, blank=True)
-    last_name = models.CharField(_("last name"), max_length=150, blank=True)
-    gender = models.CharField(_("gender of student"), max_length=50)
-    roll_no = models.CharField(_("serial or roll "), max_length=150, blank=False)
-    admitted_class = models.OneToOneField(
-        OrganizationClass, on_delete=models.CASCADE
-    )  # class name six, seven, eight
-    admitted_section = models.OneToOneField(
-        Section, on_delete=models.CASCADE
-    )  # section name kodom , kathal
-    address = JSONField()
-    created_at = models.DateTimeField(default=timezone.now, blank=True)
+from src.organization.models import TenantAwareModel
+from src.user.models import User
 
 
-class Fees(models.Model):
-    sid = models.ForeignKey(Student, on_delete=models.CASCADE)
-    admitted_fees = models.PositiveIntegerField(_("at the of admitted to organization"))
-    monthly_fees = models.PositiveIntegerField(_("payable for every month"), default=0)
-    additional_fees = JSONField()
-    payment = models.PositiveIntegerField(_("amount of payment"))
-    payment_date = models.DateField(
-        _("date of payment"), auto_now=False, auto_now_add=False
+class Student(TenantAwareModel):
+    GENDER = ((0, "Male"), (1, "Female"), (3, "Others"))
+    first_name = models.CharField(_("first name"), max_length=150)
+    last_name = models.CharField(_("last name"), max_length=150)
+    gender = models.PositiveSmallIntegerField(choices=GENDER, default=0)
+    roll_no = models.CharField(_("serial or roll "), max_length=150)
+    section = models.ForeignKey("course.Section", on_delete=models.DO_NOTHING)
+    present_address = JSONField()
+    permanent_address = JSONField(default=dict)
+    additional_info = JSONField(default=dict)
+    fees = models.ManyToManyField(
+        "accounting.StudentFee", through="student.FinancialInfo"
     )
 
+    class Meta:
+        indexes = [Index(fields=["section"])]
 
-class GuardianInfo(models.Model):
-    sid = models.ForeignKey(Student, on_delete=models.CASCADE)
-    first_name = models.CharField(_("first name"), max_length=150, blank=True)
-    last_name = models.CharField(_("last name"), max_length=150, blank=True)
+
+class FinancialInfo(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    fee = models.ForeignKey("accounting.StudentFee", on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    discount = models.DecimalField(max_digits=6, decimal_places=2)
+
+    class Meta:
+        indexes = [Index(fields=["student", "fee"])]
+
+
+class GuardianInfo(User):
+    student = models.ForeignKey(
+        Student, related_name="guardians", on_delete=models.CASCADE
+    )
     relationship = models.CharField(_("relation with student"), max_length=50)
-    gender = models.CharField(_("gender of guardian"), max_length=50)
-    mobile = models.CharField(_("mobil no "), max_length=20)
-    email = models.EmailField(_("email address"), max_length=254)
-    present_address = JSONField()
-    permanent_address = JSONField()
-    created_at = models.DateTimeField(default=timezone.now, blank=True)
+    phone = models.CharField(max_length=20, validators=[phone_regex])
+
+    class Meta:
+        indexes = [Index(fields=["student"])]

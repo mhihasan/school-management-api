@@ -9,24 +9,21 @@ from src.base.utils import phone_regex
 class Organization(TimeStampedModel):
     name = models.CharField(max_length=50)
     address = models.TextField()
-    registration_no = models.CharField(max_length=10)
-    tin = models.CharField(max_length=12, verbose_name="TIN")
-    vat_reg_no = models.CharField(max_length=15)
     phone = models.CharField(max_length=20, db_index=True, validators=[phone_regex])
     email = models.EmailField()
-    website = models.URLField(null=True, blank=True)
-    start_date = models.DateField(null=True, blank=True)
-    logo = models.ImageField(upload_to="images/organizations", null=True, blank=True)
-    tax_submission_time = models.DateField(null=True, blank=True)
-    trade_license_renew_time = models.DateField(null=True, blank=True)
-    trade_license_copy = models.FileField(
-        upload_to="scanned_copies", null=True, blank=True
-    )
-    tin_copy = models.FileField(upload_to="scanned_copies", null=True, blank=True)
-    vat_copy = models.FileField(upload_to="scanned_copies", null=True, blank=True)
+    google_map_link = models.URLField(null=True, blank=True)
 
     def __str__(self):
         return self.name
+
+
+class TenantAwareModel(TimeStampedModel):
+    organization = models.ForeignKey(
+        Organization, on_delete=models.CASCADE, db_index=True
+    )
+
+    class Meta:
+        abstract = True
 
 
 class Counter(models.Model):

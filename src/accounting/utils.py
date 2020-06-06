@@ -10,7 +10,7 @@ OTHER_CURRENT_ASSETS = 4
 
 class Balance:
     """
-    This class will calculate the balance of a given category or group.
+    This course will calculate the balance of a given category or group.
     """
 
     def __init__(self, organization_id, category=None, group=None):

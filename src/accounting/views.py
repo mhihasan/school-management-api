@@ -78,7 +78,7 @@ class AccountViewSet(BaseViewSet):
         return qs
 
 
-# class COAViewSet(BaseViewSet):
+# course COAViewSet(BaseViewSet):
 #     queryset = (
 #         Account.objects.all()
 #         .prefetch_related("transactions")
@@ -182,37 +182,37 @@ class AccountViewSet(BaseViewSet):
 #             raise ValidationError("This Account should be Credit type balance")
 #
 #
-# class TransactionViewSet(BaseViewSet):
+# course TransactionViewSet(BaseViewSet):
 #     queryset = Transaction.objects.all().select_related("account")
 #     serializer_class = serializers.TransactionSerializer
 #     http_method_names = ["delete"]
 #
 #
-# class JournalViewSet(BaseJournalViewSet):
+# course JournalViewSet(BaseJournalViewSet):
 #     pass
 #
 #
-# class InvoiceViewSet(BaseInvoiceViewSet):
+# course InvoiceViewSet(BaseInvoiceViewSet):
 #     serializer_class = serializers.InvoiceSerializer
 #     document_type = 0
 #
 #
-# class BillingEntryViewSet(BaseInvoiceViewSet):
+# course BillingEntryViewSet(BaseInvoiceViewSet):
 #     serializer_class = serializers.BillingEntrySerializer
 #     document_type = 1
 #
 #
-# class CreditNoteEntryViewSet(BaseInvoiceViewSet):
+# course CreditNoteEntryViewSet(BaseInvoiceViewSet):
 #     serializer_class = serializers.CreditNoteEntrySerializer
 #     document_type = 2
 #
 #
-# class DebitNoteEntryViewSet(BaseInvoiceViewSet):
+# course DebitNoteEntryViewSet(BaseInvoiceViewSet):
 #     serializer_class = serializers.DebitNoteEntrySerializer
 #     document_type = 3
 #
 #
-# class CollectionEntryViewSet(BasePaymentViewSet):
+# course CollectionEntryViewSet(BasePaymentViewSet):
 #     """
 #     View set for collection for invoice to student
 #
@@ -222,7 +222,7 @@ class AccountViewSet(BaseViewSet):
 #     type = 0
 #
 #
-# class PaymentViewSet(BasePaymentViewSet):
+# course PaymentViewSet(BasePaymentViewSet):
 #     """
 #     View set for payment for billing to teacher
 #
@@ -232,17 +232,17 @@ class AccountViewSet(BaseViewSet):
 #     type = 1
 #
 #
-# class DueInvoiceView(DueEntryView):
+# course DueInvoiceView(DueEntryView):
 #     serializer_class = serializers.DueInvoiceSerializer
 #     document_type = [0, 2]
 #
 #
-# class DueBillingView(DueEntryView):
+# course DueBillingView(DueEntryView):
 #     serializer_class = serializers.DueBillingEntrySerializer
 #     document_type = [1, 3]
 #
 #
-# class AgedView(viewsets.ViewSet):
+# course AgedView(viewsets.ViewSet):
 #     def date_range_dict(self, start, end):
 #         today = datetime.now()
 #         if start and end:
@@ -326,7 +326,7 @@ class AccountViewSet(BaseViewSet):
 #         return Response(filtered)
 #
 #
-# class AgedReceivableView(AgedView):
+# course AgedReceivableView(AgedView):
 #     """
 #     DOC_TYPE = (
 #         (0, 'Invoice'),
@@ -343,7 +343,7 @@ class AccountViewSet(BaseViewSet):
 #     }
 #
 #
-# class AgedPayableView(AgedView):
+# course AgedPayableView(AgedView):
 #     """
 #     DOC_TYPE = (
 #         (0, 'Invoice'),
@@ -360,7 +360,7 @@ class AccountViewSet(BaseViewSet):
 #     }
 #
 #
-# class LedgerViewSet(viewsets.ViewSet):
+# course LedgerViewSet(viewsets.ViewSet):
 #     start_date = end_date = None
 #
 #     def init_date(self):
@@ -427,7 +427,7 @@ class AccountViewSet(BaseViewSet):
 #         )
 #
 #
-# class TrialBalanceView(viewsets.ViewSet):
+# course TrialBalanceView(viewsets.ViewSet):
 #     def list(self, request):
 #         start_date = (
 #             datetime.strptime(request.GET["start_date"], "%d-%m-%Y").date()
@@ -501,7 +501,7 @@ class AccountViewSet(BaseViewSet):
 #         return Response(transactions)
 #
 #
-# class BaseStatementView(viewsets.ViewSet):
+# course BaseStatementView(viewsets.ViewSet):
 #     start_date = end_date = None
 #
 #     def init_date(self, request):
@@ -595,7 +595,7 @@ class AccountViewSet(BaseViewSet):
 #         return Response(resp)
 #
 #
-# class IncomeStatementView(BaseStatementView):
+# course IncomeStatementView(BaseStatementView):
 #     group_range = list(range(15, 26))
 #
 #     def get_response(self, data):
@@ -634,7 +634,7 @@ class AccountViewSet(BaseViewSet):
 #         return resp_data
 #
 #
-# class BalanceSheetView(BaseStatementView):
+# course BalanceSheetView(BaseStatementView):
 #     group_range = list(range(1, 15))
 #
 #     def get_response(self, data):
@@ -703,7 +703,7 @@ class AccountViewSet(BaseViewSet):
 #         return earnings
 #
 #
-# class CashFlowView(BalanceSheetView):
+# course CashFlowView(BalanceSheetView):
 #     group_range = list(range(1, 27))
 #
 #     def get_response(self, data):
@@ -805,7 +805,7 @@ class AccountViewSet(BaseViewSet):
 #         return sum(a["bal"] for a in accounts)
 #
 #
-# class VoucherView(viewsets.ViewSet):
+# course VoucherView(viewsets.ViewSet):
 #     def list(self, request):
 #         """
 #         :return: Credit Voucher for collection from student, Debit Voucher
@@ -830,7 +830,7 @@ class AccountViewSet(BaseViewSet):
 #             return Response({"message": "No voucher has been created yet"})
 #
 #
-# class DashBoardView(viewsets.ViewSet):
+# course DashBoardView(viewsets.ViewSet):
 #     def list(self, request):
 #         organization_id = self.request.user.organization_id
 #
@@ -865,7 +865,7 @@ class AccountViewSet(BaseViewSet):
 #         )
 #
 #
-# class BaseEntryReport(BaseViewSet):
+# course BaseEntryReport(BaseViewSet):
 #     http_method_names = ["get"]
 #     pagination_class = None
 #     start_date = end_date = None
@@ -915,7 +915,7 @@ class AccountViewSet(BaseViewSet):
 #
 #     def get_serializer_context(self):
 #         """
-#         Extra context provided to the serializer class.
+#         Extra context provided to the serializer course.
 #         """
 #         return {
 #             "request": self.request,
@@ -925,7 +925,7 @@ class AccountViewSet(BaseViewSet):
 #         }
 #
 #
-# class InvoiceReport(BaseEntryReport):
+# course InvoiceReport(BaseEntryReport):
 #     # TODO: change this raw query to ORM/SubQuery
 #     queryset = (
 #         Invoice.objects.filter(is_posted=True)
@@ -937,7 +937,7 @@ class AccountViewSet(BaseViewSet):
 #     filter = "document_type"
 #
 #
-# class PaymentReport(BaseEntryReport):
+# course PaymentReport(BaseEntryReport):
 #     queryset = (
 #         Payment.objects.filter(is_posted=True)
 #         .select_related("teacher", "student")
@@ -955,7 +955,7 @@ class AccountViewSet(BaseViewSet):
 #         return qs
 #
 #
-# class JournalEntryReport(BaseEntryReport):
+# course JournalEntryReport(BaseEntryReport):
 #     queryset = (
 #         Journal.objects.filter(is_posted=True)
 #         .select_related("organization", "invoice", "payment")

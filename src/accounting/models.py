@@ -14,9 +14,14 @@ from src.accounting.constants import (
     TRANSACTION_TYPE,
 )
 from src.base.models import TimeStampedModel, TimeStampIndexedModel
-from src.organization.models import Organization
-from src.user.models import Student
-from src.user.models import Teacher
+from src.organization.models import Organization, TenantAwareModel
+from src.student.models import Student
+from src.teacher.models import Teacher
+
+
+class StudentFee(TenantAwareModel):
+    name = models.CharField(max_length=150)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
 
 
 class AccountGroup(models.Model):

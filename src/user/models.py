@@ -78,7 +78,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
 
     organization = models.ForeignKey(
-        Organization, on_delete=models.CASCADE, null=True, blank=True
+        Organization, on_delete=models.CASCADE, null=True, blank=True, db_index=True
     )
 
     username = None
@@ -111,11 +111,3 @@ class User(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
-
-
-class Teacher(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-
-class Student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
