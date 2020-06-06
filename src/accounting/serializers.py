@@ -373,8 +373,8 @@ class PaymentSerializer(BasePaymentSerializer):
 
 
 #
-# course AccountSerializer(serializers.ModelSerializer):
-#     course Meta:
+# class AccountSerializer(serializers.ModelSerializer):
+#     class Meta:
 #         model = Account
 #         exclude = ["date_created", "last_updated"]
 
