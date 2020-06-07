@@ -1,0 +1,11 @@
+{
+    "dev": {
+        "django_settings": "conf.settings",
+        "profile_name": "dingi-sigmind",
+        "project_name": "talibe-ilm-api",
+        "runtime": "python3.7",
+        "s3_bucket": "zappa-4gq8fh9zw",
+        "certificate_arn": "arn:aws:acm:us-east-1:421790242708:certificate/1bd28601-e55d-4bbc-af49-50d0e1f0759d",
+        "domain": "navapi.dingi.live"
+    }
+}

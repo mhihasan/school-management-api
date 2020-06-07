@@ -48,7 +48,13 @@ PROJECTS_APPS = [
     "src.teacher",
 ]
 
-THIRD_PARTY_APPS = ["rest_framework", "drf_yasg", "django_filters", "corsheaders"]
+THIRD_PARTY_APPS = [
+    "rest_framework",
+    "drf_yasg",
+    "django_filters",
+    "corsheaders",
+    "django_s3_storage",
+]
 
 INSTALLED_APPS = (
     [
@@ -141,8 +147,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# STATIC_URL = "/static/"
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Customize Authenctication
 # https://docs.djangoproject.com/en/3.0/topics/auth/customizing/#substituting-a-custom-user-model
@@ -210,3 +216,23 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=90),
 }
+
+
+# Django S3 stoarage config
+# https://github.com/etianen/django-s3-storage
+
+STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
+AWS_S3_BUCKET_NAME_STATIC = "talibe-e-ilm"
+
+# These next two lines will serve the static files directly
+# from the s3 bucket
+AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_S3_BUCKET_NAME_STATIC
+STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+
+# AWS_REGION = "us-west-2"
+#
+# # The AWS access key to use.
+# AWS_ACCESS_KEY_ID = "AKIAWENFIK6KIJ2THV6J"
+#
+# # The AWS secret access key to use.
+# AWS_SECRET_ACCESS_KEY = "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"
