@@ -37,4 +37,4 @@ uritemplate==3.0.1
 urllib3==1.25.8
 wcwidth==0.1.9
 zipp==3.1.0
-django-s3-storage-0.13.2
+django-s3-storage==0.13.2
