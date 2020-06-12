@@ -16,7 +16,7 @@ from src.accounting.constants import (
 from src.base.models import TimeStampedModel, TimeStampIndexedModel
 from src.organization.models import Organization, TenantAwareModel
 from src.student.models import Student
-from src.teacher.models import Teacher
+from src.employee.models import Employee
 
 
 class StudentFee(TenantAwareModel):
@@ -146,8 +146,8 @@ class Invoice(BaseEntry):
     student = models.ForeignKey(
         Student, on_delete=models.PROTECT, null=True, blank=True
     )
-    teacher = models.ForeignKey(
-        Teacher, on_delete=models.PROTECT, null=True, blank=True
+    employee = models.ForeignKey(
+        Employee, on_delete=models.PROTECT, null=True, blank=True
     )
 
     def __str__(self):
@@ -173,8 +173,8 @@ class Payment(BaseEntry):
     student = models.ForeignKey(
         Student, on_delete=models.CASCADE, null=True, blank=True
     )
-    teacher = models.ForeignKey(
-        Teacher, on_delete=models.PROTECT, null=True, blank=True
+    employee = models.ForeignKey(
+        Employee, on_delete=models.PROTECT, null=True, blank=True
     )
 
     invoice = models.ForeignKey(

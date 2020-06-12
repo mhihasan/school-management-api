@@ -65,10 +65,16 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text=_("Designates whether the user is the admin of an organization."),
     )
 
-    is_teacher = models.BooleanField(
-        _("teacher status"),
+    is_academic = models.BooleanField(
+        _("employee status"),
         default=False,
-        help_text=_("Designates whether the user is teacher."),
+        help_text=_("Designates whether the employee is academic or administrative."),
+    )
+
+    is_administrative = models.BooleanField(
+        _("employee status"),
+        default = False,
+        help_text=_("Designates whether the employee is academic or administrative.")
     )
 
     is_guardian = models.BooleanField(

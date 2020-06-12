@@ -12,11 +12,15 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='FinancialInfo',
+            name='Designation',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('amount', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('discount', models.DecimalField(decimal_places=2, max_digits=6)),
+                ('date_created', models.DateTimeField(blank=True, null=True)),
+                ('last_updated', models.DateTimeField(blank=True, null=True)),
+                ('title', models.CharField(max_length=255)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
     ]

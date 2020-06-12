@@ -45,7 +45,7 @@ PROJECTS_APPS = [
     "src.accounting",
     "src.course",
     "src.student",
-    "src.teacher",
+    "src.employee",
 ]
 
 THIRD_PARTY_APPS = ["rest_framework", "drf_yasg", "django_filters", "corsheaders"]
