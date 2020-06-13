@@ -7,31 +7,40 @@ import src.employee.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('employee', '0003_legalinformation'),
+        ("employee", "0003_legalinformation"),
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='legalinformation',
-            name='image',
-        ),
+        migrations.RemoveField(model_name="legalinformation", name="image",),
         migrations.AddField(
-            model_name='employee',
-            name='amount',
+            model_name="employee",
+            name="amount",
             field=models.DecimalField(decimal_places=2, default=0, max_digits=10),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='employee',
-            name='blood_group',
-            field=models.PositiveIntegerField(choices=[(0, 'A+'), (1, 'A-'), (2, 'B+'), (3, 'B-'), (4, 'O+'), (5, 'O-'), (6, 'AB+'), (7, 'AB-')], default=0),
+            model_name="employee",
+            name="blood_group",
+            field=models.PositiveIntegerField(
+                choices=[
+                    (0, "A+"),
+                    (1, "A-"),
+                    (2, "B+"),
+                    (3, "B-"),
+                    (4, "O+"),
+                    (5, "O-"),
+                    (6, "AB+"),
+                    (7, "AB-"),
+                ],
+                default=0,
+            ),
         ),
         migrations.AddField(
-            model_name='employee',
-            name='image',
-            field=models.ImageField(blank=True, null=True, upload_to=src.employee.models.upload_path),
+            model_name="employee",
+            name="image",
+            field=models.ImageField(
+                blank=True, null=True, upload_to=src.employee.models.upload_path
+            ),
         ),
-        migrations.DeleteModel(
-            name='SalaryInfo',
-        ),
+        migrations.DeleteModel(name="SalaryInfo",),
     ]

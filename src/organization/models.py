@@ -78,8 +78,8 @@ class SalaryConfig(TenantAwareModel):
         (4, "Contractual"),
     )
     employee_type = models.PositiveIntegerField(choices=EMPLOYEE_TYPES)
-    basic = models.PositiveIntegerField(blank=True) # 60%
-    medical_allowonce = models.PositiveIntegerField(blank=True) # 10%
-    house_rent = models.PositiveIntegerField(blank=True) # 20%
-    transport = models.PositiveIntegerField(blank=True) # 5%
-    others =  models.PositiveIntegerField(blank=True) # 5%
+    basic = models.PositiveIntegerField(blank=True)  # 60%
+    medical_allowonce = models.PositiveIntegerField(blank=True)  # 10%
+    house_rent = models.PositiveIntegerField(blank=True)  # 20%
+    transport = models.PositiveIntegerField(blank=True)  # 5%
+    others = models.PositiveIntegerField(blank=True)  # 5%

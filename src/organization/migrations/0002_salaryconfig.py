@@ -7,26 +7,48 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('organization', '0001_initial'),
+        ("organization", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='SalaryConfig',
+            name="SalaryConfig",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('date_created', models.DateTimeField(blank=True, null=True)),
-                ('last_updated', models.DateTimeField(blank=True, null=True)),
-                ('employee_type', models.PositiveIntegerField(choices=[(0, 'Probation'), (1, 'Full-Time'), (3, 'Part-time'), (4, 'Contractual')])),
-                ('basic', models.PositiveIntegerField(blank=True)),
-                ('medical_allowonce', models.PositiveIntegerField(blank=True)),
-                ('house_rent', models.PositiveIntegerField(blank=True)),
-                ('transport', models.PositiveIntegerField(blank=True)),
-                ('others', models.PositiveIntegerField(blank=True)),
-                ('organization', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='organization.Organization')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("date_created", models.DateTimeField(blank=True, null=True)),
+                ("last_updated", models.DateTimeField(blank=True, null=True)),
+                (
+                    "employee_type",
+                    models.PositiveIntegerField(
+                        choices=[
+                            (0, "Probation"),
+                            (1, "Full-Time"),
+                            (3, "Part-time"),
+                            (4, "Contractual"),
+                        ]
+                    ),
+                ),
+                ("basic", models.PositiveIntegerField(blank=True)),
+                ("medical_allowonce", models.PositiveIntegerField(blank=True)),
+                ("house_rent", models.PositiveIntegerField(blank=True)),
+                ("transport", models.PositiveIntegerField(blank=True)),
+                ("others", models.PositiveIntegerField(blank=True)),
+                (
+                    "organization",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="organization.Organization",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
+            options={"abstract": False,},
         ),
     ]

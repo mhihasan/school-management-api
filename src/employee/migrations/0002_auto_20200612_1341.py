@@ -11,67 +11,156 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('organization', '0001_initial'),
-        ('user', '0001_initial'),
-        ('course', '0001_initial'),
-        ('employee', '0001_initial'),
+        ("organization", "0001_initial"),
+        ("user", "0001_initial"),
+        ("course", "0001_initial"),
+        ("employee", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Employee',
+            name="Employee",
             fields=[
-                ('user_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
-                ('employee_type', models.PositiveSmallIntegerField(choices=[(0, 'Probation'), (1, 'Full-Time'), (3, 'Part-time'), (4, 'Contractual')], default=1)),
-                ('joining_date', models.DateField(auto_now=True)),
-                ('permanent_joining_date', models.DateField(blank=True, null=True)),
-                ('gender', models.PositiveSmallIntegerField(choices=[(0, 'Male'), (1, 'Female'), (3, 'Others')], default=0)),
-                ('birth_date', models.DateField(blank=True, null=True)),
-                ('designation', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='employee.Designation')),
-                ('sections', models.ManyToManyField(blank=True, to='course.Section')),
+                (
+                    "user_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "employee_type",
+                    models.PositiveSmallIntegerField(
+                        choices=[
+                            (0, "Probation"),
+                            (1, "Full-Time"),
+                            (3, "Part-time"),
+                            (4, "Contractual"),
+                        ],
+                        default=1,
+                    ),
+                ),
+                ("joining_date", models.DateField(auto_now=True)),
+                ("permanent_joining_date", models.DateField(blank=True, null=True)),
+                (
+                    "gender",
+                    models.PositiveSmallIntegerField(
+                        choices=[(0, "Male"), (1, "Female"), (3, "Others")], default=0
+                    ),
+                ),
+                ("birth_date", models.DateField(blank=True, null=True)),
+                (
+                    "designation",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="employee.Designation",
+                    ),
+                ),
+                ("sections", models.ManyToManyField(blank=True, to="course.Section")),
             ],
-            bases=('user.user',),
-            managers=[
-                ('objects', src.user.models.UserManager()),
+            bases=("user.user",),
+            managers=[("objects", src.user.models.UserManager()),],
+        ),
+        migrations.CreateModel(
+            name="SalaryInfo",
+            fields=[
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "salary_type",
+                    models.PositiveSmallIntegerField(
+                        choices=[
+                            (0, "Probation Period Salary"),
+                            (1, "Permanent Salary"),
+                            (2, "Festival Bonus"),
+                            (3, "Salary Increment"),
+                        ],
+                        default=1,
+                    ),
+                ),
+                ("amount", models.DecimalField(decimal_places=2, max_digits=10)),
+                ("start_date", models.DateField(blank=True, null=True)),
+                ("end_date", models.DateField(blank=True, null=True)),
+                (
+                    "employee",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="employee.Employee",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='SalaryInfo',
+            name="Leave",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('salary_type', models.PositiveSmallIntegerField(choices=[(0, 'Probation Period Salary'), (1, 'Permanent Salary'), (2, 'Festival Bonus'), (3, 'Salary Increment')], default=1)),
-                ('amount', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('start_date', models.DateField(blank=True, null=True)),
-                ('end_date', models.DateField(blank=True, null=True)),
-                ('employee', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='employee.Employee')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Leave',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('leave_type', models.PositiveSmallIntegerField(choices=[(0, 'Casual'), (1, 'Sick'), (2, 'Others')], default=0)),
-                ('days', models.PositiveSmallIntegerField(default=1, verbose_name='number of days leave')),
-                ('start_date', models.DateField()),
-                ('end_date', models.DateField()),
-                ('employee', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='employee.Employee')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "leave_type",
+                    models.PositiveSmallIntegerField(
+                        choices=[(0, "Casual"), (1, "Sick"), (2, "Others")], default=0
+                    ),
+                ),
+                (
+                    "days",
+                    models.PositiveSmallIntegerField(
+                        default=1, verbose_name="number of days leave"
+                    ),
+                ),
+                ("start_date", models.DateField()),
+                ("end_date", models.DateField()),
+                (
+                    "employee",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="employee.Employee",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='designation',
-            name='organization',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='organization.Organization'),
+            model_name="designation",
+            name="organization",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="organization.Organization",
+            ),
         ),
         migrations.AddIndex(
-            model_name='salaryinfo',
-            index=models.Index(fields=['employee'], name='employee_sa_employe_b026c3_idx'),
+            model_name="salaryinfo",
+            index=models.Index(
+                fields=["employee"], name="employee_sa_employe_b026c3_idx"
+            ),
         ),
         migrations.AddIndex(
-            model_name='leave',
-            index=models.Index(fields=['employee'], name='employee_le_employe_00b166_idx'),
+            model_name="leave",
+            index=models.Index(
+                fields=["employee"], name="employee_le_employe_00b166_idx"
+            ),
         ),
         migrations.AddIndex(
-            model_name='employee',
-            index=models.Index(fields=['designation'], name='employee_em_designa_e3c917_idx'),
+            model_name="employee",
+            index=models.Index(
+                fields=["designation"], name="employee_em_designa_e3c917_idx"
+            ),
         ),
     ]

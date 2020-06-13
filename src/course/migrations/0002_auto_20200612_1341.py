@@ -9,56 +9,79 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('employee', '0002_auto_20200612_1341'),
-        ('course', '0001_initial'),
-        ('student', '0002_auto_20200612_1341'),
-        ('organization', '0001_initial'),
+        ("employee", "0002_auto_20200612_1341"),
+        ("course", "0001_initial"),
+        ("student", "0002_auto_20200612_1341"),
+        ("organization", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='subject',
-            name='teacher',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='employee.Employee'),
+            model_name="subject",
+            name="teacher",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="employee.Employee"
+            ),
         ),
         migrations.AddField(
-            model_name='section',
-            name='course',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='sections', to='course.Course'),
+            model_name="section",
+            name="course",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="sections",
+                to="course.Course",
+            ),
         ),
         migrations.AddField(
-            model_name='course',
-            name='organization',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='organization.Organization'),
+            model_name="course",
+            name="organization",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="organization.Organization",
+            ),
         ),
         migrations.AddField(
-            model_name='attendance',
-            name='employee',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='employee.Employee'),
+            model_name="attendance",
+            name="employee",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.DO_NOTHING, to="employee.Employee"
+            ),
         ),
         migrations.AddField(
-            model_name='attendance',
-            name='student',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='student.Student'),
+            model_name="attendance",
+            name="student",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.DO_NOTHING, to="student.Student"
+            ),
         ),
         migrations.AddIndex(
-            model_name='subject',
-            index=models.Index(fields=['course'], name='course_subj_course__4bb921_idx'),
+            model_name="subject",
+            index=models.Index(
+                fields=["course"], name="course_subj_course__4bb921_idx"
+            ),
         ),
         migrations.AddIndex(
-            model_name='subject',
-            index=models.Index(fields=['teacher'], name='course_subj_teacher_2a0a50_idx'),
+            model_name="subject",
+            index=models.Index(
+                fields=["teacher"], name="course_subj_teacher_2a0a50_idx"
+            ),
         ),
         migrations.AddIndex(
-            model_name='section',
-            index=models.Index(fields=['course'], name='course_sect_course__b43649_idx'),
+            model_name="section",
+            index=models.Index(
+                fields=["course"], name="course_sect_course__b43649_idx"
+            ),
         ),
         migrations.AddIndex(
-            model_name='attendance',
-            index=models.Index(fields=['student'], name='course_atte_student_1927ba_idx'),
+            model_name="attendance",
+            index=models.Index(
+                fields=["student"], name="course_atte_student_1927ba_idx"
+            ),
         ),
         migrations.AddIndex(
-            model_name='attendance',
-            index=models.Index(fields=['employee'], name='course_atte_employe_7d1308_idx'),
+            model_name="attendance",
+            index=models.Index(
+                fields=["employee"], name="course_atte_employe_7d1308_idx"
+            ),
         ),
     ]
