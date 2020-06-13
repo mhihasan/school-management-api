@@ -41,6 +41,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+
     first_name = models.CharField(_("first name"), max_length=150, blank=True)
     last_name = models.CharField(_("last name"), max_length=150, blank=True)
     email = models.EmailField(_("email address"), unique=True)
@@ -65,10 +66,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text=_("Designates whether the user is the admin of an organization."),
     )
 
-    is_teacher = models.BooleanField(
-        _("teacher status"),
+    is_academic = models.BooleanField(
+        _("employee status"),
         default=False,
-        help_text=_("Designates whether the user is teacher."),
+        help_text=_("Designates whether the employee is academic."),
     )
 
     is_guardian = models.BooleanField(
@@ -78,7 +79,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
 
     organization = models.ForeignKey(
-        Organization, on_delete=models.CASCADE, null=True, blank=True
+        Organization, on_delete=models.CASCADE, null=True, blank=True, db_index=True
     )
 
     username = None
@@ -111,11 +112,3 @@ class User(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
-
-
-class Teacher(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-
-class Student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)

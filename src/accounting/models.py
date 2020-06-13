@@ -14,9 +14,14 @@ from src.accounting.constants import (
     TRANSACTION_TYPE,
 )
 from src.base.models import TimeStampedModel, TimeStampIndexedModel
-from src.organization.models import Organization
-from src.user.models import Student
-from src.user.models import Teacher
+from src.organization.models import Organization, TenantAwareModel
+from src.student.models import Student
+from src.employee.models import Employee
+
+
+class StudentFee(TenantAwareModel):
+    name = models.CharField(max_length=150)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
 
 
 class AccountGroup(models.Model):
@@ -141,8 +146,8 @@ class Invoice(BaseEntry):
     student = models.ForeignKey(
         Student, on_delete=models.PROTECT, null=True, blank=True
     )
-    teacher = models.ForeignKey(
-        Teacher, on_delete=models.PROTECT, null=True, blank=True
+    employee = models.ForeignKey(
+        Employee, on_delete=models.PROTECT, null=True, blank=True
     )
 
     def __str__(self):
@@ -168,8 +173,8 @@ class Payment(BaseEntry):
     student = models.ForeignKey(
         Student, on_delete=models.CASCADE, null=True, blank=True
     )
-    teacher = models.ForeignKey(
-        Teacher, on_delete=models.PROTECT, null=True, blank=True
+    employee = models.ForeignKey(
+        Employee, on_delete=models.PROTECT, null=True, blank=True
     )
 
     invoice = models.ForeignKey(
