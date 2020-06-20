@@ -15,12 +15,6 @@ class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
 
-class CourseViewByOrganization(generics.ListAPIView):
-    serializer_class = CourseSerializer
-    def get_queryset(self):
-        organization_id = self.kwargs['id']
-        return Course.objects.filter(organization=organization_id)
-
 class SubjectViewSet(viewsets.ModelViewSet):
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer

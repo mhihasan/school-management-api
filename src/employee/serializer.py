@@ -9,9 +9,7 @@ from .models import Leave, LegalInformation
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
-        fields = ["first_name", "last_name", "email","is_academic","is_admin_staff","designation",
-        "employee_type","joining_date","permanent_joining_date","sections","gender","birth_date","blood_group",
-        "gross_salary","photo"]
+        exclude = ("is_staff","is_active","is_guardian","organization")
 
 class LeaveSerializer(serializers.ModelSerializer):
     class Meta:
