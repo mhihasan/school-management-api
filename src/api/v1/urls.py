@@ -32,6 +32,7 @@ router.register("attendance", course.AttendanceViewSet)
 # employee
 router.register('employee/leave', emp.LeaveViewSet),
 router.register('employee/legalinfo', emp.LegalInfoViewSet)
+router.register("employee/designation", emp.DesignationViewSet)
 router.register('employee',emp.EmployeeViewSet),
 
 
