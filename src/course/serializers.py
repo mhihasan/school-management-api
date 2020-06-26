@@ -20,12 +20,7 @@ class SubjectSerializer(serializers.ModelSerializer):
         model = Subject
         fields = ["name","course","teacher"]
 
-class AttendanceTeacherSerializer(serializers.ModelSerializer):
+class AttendanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Attendance
-        fields = ["employee","date","is_present"]
-
-class AttendanceStudentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Attendance
-        fields = ["student", "date", "is_present"]
+        fields = ["student","employee","date","is_present"]

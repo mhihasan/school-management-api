@@ -7,7 +7,7 @@ from .models import Course, Subject, Section, Attendance
 
 # imported Serializer 
 from .serializers import CourseSerializer, SubjectSerializer, SectionSerializer
-from .serializers import AttendanceStudentSerializer, AttendanceTeacherSerializer
+from .serializers import AttendanceSerializer
 
 # Create your views here.
 
@@ -23,11 +23,7 @@ class SectionViewSet(viewsets.ModelViewSet):
     queryset = Section.objects.all()
     serializer_class = SectionSerializer
 
-class AttendanceTeacherViewSet(viewsets.ModelViewSet):
+class AttendanceViewSet(viewsets.ModelViewSet):
     queryset = Attendance.objects.all()
-    serializer_class = AttendanceTeacherSerializer
-
-class AttendanceStudentViewSet(viewsets.ModelViewSet):
-    queryset = Attendance.objects.all()
-    serializer_class = AttendanceStudentSerializer
+    serializer_class = AttendanceSerializer
 

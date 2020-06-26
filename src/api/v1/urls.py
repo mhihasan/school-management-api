@@ -26,8 +26,7 @@ router.register("accounts", acc.AccountViewSet, "accounts")
 router.register("course", course.CourseViewSet) 
 router.register("subject", course.SubjectViewSet) 
 router.register("section", course.SectionViewSet)
-router.register("attendance/teacher", course.AttendanceTeacherViewSet)
-router.register("attendance/student", course.AttendanceStudentViewSet)
+router.register("attendance", course.AttendanceViewSet)
 
 
 # employee
