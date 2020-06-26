@@ -24,6 +24,14 @@ class LeaveViewSet(viewsets.ModelViewSet):
 class LegalInfoViewSet(viewsets.ModelViewSet):
     queryset = LegalInformation.objects.all()
     serializer_class = LegalInformationSerializer
+    def get_queryset(self):
+        queryset = self.queryset
+        employee = self.request.query_params.get('employee','')
+        if employee:
+            query_set = queryset.filter(employee=employee)
+            return query_set
+        else:
+            return queryset
 
 class DesignationViewSet(viewsets.ModelViewSet):
     queryset = Designation.objects.all()

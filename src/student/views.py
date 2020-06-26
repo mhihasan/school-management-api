@@ -15,8 +15,18 @@ class StudentViewSet(viewsets.ModelViewSet):
     serializer_class = StudentSerializer
 
 class FinancialInfoViewSet(viewsets.ModelViewSet):
-    queryset = FinancialInfo.objects.all()
+    # queryset = FinancialInfo.objects.all()
     serializer_class = FinancialInfoSerializer
+    queryset = FinancialInfo.objects.all()
+    def get_queryset(self):
+        queryset = self.queryset
+        student = self.request.query_params.get('student','')
+        if student:
+            query_set = queryset.filter(student=student)
+            return query_set
+        else:
+            return queryset
+    
 
 class GuardianInfoViewSet(viewsets.ModelViewSet):
     queryset = GuardianInfo.objects.all()
