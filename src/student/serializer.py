@@ -16,4 +16,4 @@ class FinancialInfoSerializer(serializers.ModelSerializer):
 class GuardianInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = GuardianInfo
-        exclude = ["is_staff","is_admin_staff","is_academic","organization","date_joined","is_active","password","last_login","is_superuser"]
+        exclude = ["is_staff","is_admin_staff","is_academic","organization","date_joined","is_active","password","last_login","is_superuser","groups","user_permissions"]
