@@ -23,4 +23,4 @@ class SubjectSerializer(serializers.ModelSerializer):
 class AttendanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Attendance
-        fields = ["student","employee","date","is_present"]
+        fields = "__all__"

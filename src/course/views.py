@@ -24,6 +24,19 @@ class SectionViewSet(viewsets.ModelViewSet):
     serializer_class = SectionSerializer
 
 class AttendanceViewSet(viewsets.ModelViewSet):
-    queryset = Attendance.objects.all()
+    # queryset = Attendance.objects.all()
     serializer_class = AttendanceSerializer
+    queryset = Attendance.objects.all()
+    def get_queryset(self):
+        queryset = self.queryset
+        person = self.request.query_params.get('student','')
+        person2 = self.request.query_params.get('employee','')
+        if person:
+            query_set = queryset.filter(student=person)
+            return query_set
+        elif person2:
+            query_set = queryset.filter(employee=person2)
+            return query_set
+        else:
+            return queryset
 
