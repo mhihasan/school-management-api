@@ -8,17 +8,17 @@ from .models import Course, Section, Subject, Attendance
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ["name","organization"]
+        fields = ["id","name","organization"]
 
 class SectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Section
-        fields = ["name","course"]
+        fields = ["id","name","course"]
 
 class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
-        fields = ["name","course","teacher"]
+        fields = ["id","name","course","teacher"]
 
 class AttendanceSerializer(serializers.ModelSerializer):
     class Meta:

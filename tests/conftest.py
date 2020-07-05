@@ -15,7 +15,7 @@ def admin_staff(email, password, org_id):
 
 
 def admin_credential():
-    return {"email": "admin_staff@gmail.com", "password": "admin_password"}
+    return {"email": "adilreza043@gmail.com", "password": "Adilreza043@"}
 
 
 def teacher_email():
