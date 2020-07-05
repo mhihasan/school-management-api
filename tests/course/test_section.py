@@ -8,7 +8,6 @@ import json
 from src.course.models import Section
 from src.course.serializers import SectionSerializer
 from src.course.models import Course
-from src.course.serializers import CourseSerializer
 
 class TestSectionViewSet(APITestCase):
 
