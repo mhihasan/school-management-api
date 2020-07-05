@@ -31,13 +31,4 @@ class FinancialInfoViewSet(viewsets.ModelViewSet):
 class GuardianInfoViewSet(viewsets.ModelViewSet):
     queryset = GuardianInfo.objects.all()
     serializer_class = GuardianInfoSerializer
-
-    # def perform_create(self, request, *args, **kwargs):
-    #     email = request.data["email"]
-    #     username = email
-    #     password = "Password123@"
-    #     User.objects.create_user(email=email, password=password)
-    #     serializer = GuardianInfoSerializer(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     serializer.save()
-    #     return HttpResponse({'message': "succefully saved"}, status=200)
+    
