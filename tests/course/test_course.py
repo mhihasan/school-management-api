@@ -1,6 +1,11 @@
 from rest_framework import status
 from rest_framework.test import APITestCase
-from tests.conftest import organization, admin_staff, ADMIN_EMAIL, ADMIN_PASSWORD
+from tests.conftest import (
+    organization_object,
+    admin_staff_object,
+    ADMIN_EMAIL,
+    ADMIN_PASSWORD,
+)
 from tests.course.conftest import course_object
 import json
 
@@ -11,9 +16,8 @@ from src.course.serializers import CourseSerializer
 
 class TestCourseViewSet(APITestCase):
     def setUp(self):
-        self.organization = organization("org")
-        print("org", self.organization.id)
-        self.admin = admin_staff(
+        self.organization = organization_object("org")
+        self.admin = admin_staff_object(
             ADMIN_EMAIL, ADMIN_PASSWORD, org_id=self.organization.id
         )
         self.course = course_object(self.organization.id)
