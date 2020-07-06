@@ -5,18 +5,16 @@ from rest_framework.test import APITestCase
 
 from src.accounting.models import Account
 from src.accounting.serializers import AccountSerializer
-from tests.conftest import organization, admin_staff, admin_credential
+from tests.conftest import organization, admin_staff, ADMIN_EMAIL, ADMIN_PASSWORD
 
 
 class TestAccountViewSet(APITestCase):
     fixtures = ["account_group.json"]
 
     def setUp(self):
-        self.admin_email = admin_credential().get("email")
-        self.password = admin_credential().get("password")
         self.organization = organization("org")
         self.admin = admin_staff(
-            self.admin_email, self.password, org_id=self.organization.id
+            ADMIN_EMAIL, ADMIN_PASSWORD, org_id=self.organization.id
         )
 
     def _create_account(self):

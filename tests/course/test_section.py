@@ -1,7 +1,6 @@
-from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
-from tests.conftest import organization, admin_staff, admin_credential
+from tests.conftest import organization, admin_staff, ADMIN_EMAIL, ADMIN_PASSWORD
 import json
 
 # imported serializer and model
@@ -9,36 +8,28 @@ from src.course.models import Section
 from src.course.serializers import SectionSerializer
 from src.course.models import Course
 
-class TestSectionViewSet(APITestCase):
 
+class TestSectionViewSet(APITestCase):
     def setUp(self):
-        self.admin_email = admin_credential().get("email")
-        self.password = admin_credential().get("password")
         self.organization = organization("org")
         self.admin = admin_staff(
-            self.admin_email, self.password, org_id=self.organization.id
+            ADMIN_EMAIL, ADMIN_PASSWORD, org_id=self.organization.id
         )
 
     def _create_course(self):
-        return Course.objects.create(
-            name="course",
-            organization=self.organization
-        )
+        return Course.objects.create(name="course", organization=self.organization)
+
     def _create_section(self):
         course = self._create_course()
-        return Section.objects.create(
-            name="class999",
-            course=course
-        )
-
+        return Section.objects.create(name="class999", course=course)
 
     def test_create_section(self):
         url = "/api/v1/section/"
         course = self._create_course()
-        data = {'name': 'kodom2',"course":course.id}
+        data = {"name": "kodom2", "course": course.id}
         self.client.force_authenticate(user=self.admin)
-        response = self.client.post(url, data, format='json')
-        #print(response.content)
+        response = self.client.post(url, data, format="json")
+        # print(response.content)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Course.objects.count(), 1)
 

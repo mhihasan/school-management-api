@@ -24,3 +24,9 @@ def teacher_email():
 
 def guardian_email():
     return "guardian@gmail.com"
+
+
+ADMIN_EMAIL, ADMIN_PASSWORD = (
+    "adilreza043@gmail.com",
+    "Adilreza043@",
+)
