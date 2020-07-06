@@ -3,9 +3,7 @@ from src.user.models import User
 
 
 def organization(name):
-    org = Organization(name=name)
-    org.save()
-    return org
+    return Organization.objects.create(name=name)
 
 
 def admin_staff(email, password, org_id):

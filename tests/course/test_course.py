@@ -12,6 +12,7 @@ from src.course.serializers import CourseSerializer
 class TestCourseViewSet(APITestCase):
     def setUp(self):
         self.organization = organization("org")
+        print("org", self.organization.id)
         self.admin = admin_staff(
             ADMIN_EMAIL, ADMIN_PASSWORD, org_id=self.organization.id
         )
@@ -23,10 +24,9 @@ class TestCourseViewSet(APITestCase):
         url = "/api/v1/course/"
         data = {"name": "class9", "organization": self.organization.id}
         response = self.client.post(url, data, format="json")
-        # print(response.content)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Course.objects.count(), 1)
-        self.assertEqual(Course.objects.get().name, "class9")
+        self.assertEqual(Course.objects.count(), 2)
+        self.assertEqual(response.data["name"], "class9")
 
     def test_retrieve_course(self):
         url = f"/api/v1/course/{self.course.id}/"
