@@ -1,5 +1,5 @@
 
-from src.student.models import Student
+from src.student.models import Student,FinancialInfo
 
 def student_object(section, org):
     return Student.objects.create(
@@ -12,4 +12,11 @@ def student_object(section, org):
         additional_info='[{"name": "kushtia"}]',
         organization=org,
         gender=1,
+    )
+
+def financialinfo_object(student, amount):
+    return FinancialInfo.objects.create(
+        student=student,
+        amount=amount,
+        discount=5
     )

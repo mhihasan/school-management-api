@@ -1,4 +1,4 @@
-from src.accounting.models import Account
+from src.accounting.models import Account, StudentFee
 
 
 def account_object(org_id):
@@ -9,4 +9,11 @@ def account_object(org_id):
         account_type=1,
         gl_code="xlg",
         organization_id=org_id,
+    )
+
+
+def studentfee_object(name, amount=6700):
+    return StudentFee.objects.create(
+        name=name,
+        amount=amount
     )

@@ -30,7 +30,7 @@ class Student(TenantAwareModel):
 
 class FinancialInfo(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    fee = models.ForeignKey("accounting.StudentFee", on_delete=models.CASCADE)
+    fee = models.ForeignKey("accounting.StudentFee", on_delete=models.CASCADE, null=True, blank=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     discount = models.DecimalField(max_digits=6, decimal_places=2)
 
