@@ -1,5 +1,5 @@
 
-from src.student.models import Student,FinancialInfo
+from src.student.models import Student,FinancialInfo, GuardianInfo
 
 def student_object(section, org):
     return Student.objects.create(
@@ -19,4 +19,13 @@ def financialinfo_object(student, amount):
         student=student,
         amount=amount,
         discount=5
+    )
+
+def guardian_info_object(student, email):
+    return GuardianInfo.objects.create(
+        student=student,
+        email=email,
+        phone="01774363237",
+        is_guardian= True,
+        relationship= "brother"
     )

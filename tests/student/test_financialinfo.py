@@ -37,7 +37,6 @@ class TestFinancialInfoViewSet(APITestCase):
                 "discount": 5,
         }
         response = self.client.post(url, data, format="json")
-        print(response.content)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(FinancialInfo.objects.count(), 2)
         self.assertEqual(response.data["student"], self.student.id)
