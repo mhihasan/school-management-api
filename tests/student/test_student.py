@@ -6,11 +6,13 @@ from tests.conftest import (
     ADMIN_EMAIL,
     ADMIN_PASSWORD,
 )
-from tests.student.conftest import student_object, course_object, section_object
+from tests.student.conftest import student_object
+from tests.course.conftest import course_object, section_object
 import json
 
 # imported serializer and model
 from src.student.models import Student
+from src.student.serializer import StudentSerializer
 
 
 class TestStudentViewSet(APITestCase):
@@ -34,9 +36,28 @@ class TestStudentViewSet(APITestCase):
             "organization": self.organization.id
         }
         response = self.client.post(url, data, format="json")
-        print(response.content)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Student.objects.count(), 2)
         self.assertEqual(response.data["first_name"], "adill")
 
-    
+    def test_retrieve_student(self):
+        url = f"/api/v1/student/{self.student.id}/"
+        response = self.client.get(url)
+
+        self.assertEqual(200, response.status_code)
+
+        student_serializer_data = StudentSerializer(instance=self.student).data
+        response_data = json.loads(response.content)
+        self.assertEqual(student_serializer_data, response_data)
+
+    def test_partial_update_student(self):
+        url = f"/api/v1/student/{self.student.id}/"
+        response = self.client.patch(url, {"last_name": "Reza"})
+        response_data = json.loads(response.content)
+        changed_data = Student.objects.get(id=self.student.id)
+        self.assertEqual(response_data.get("last_name"), changed_data.last_name)
+
+    def test_student_object_delete(self):
+        url = f"/api/v1/student/{self.student.id}/"
+        response = self.client.delete(url)
+        self.assertEqual(204, response.status_code)

@@ -7,7 +7,8 @@ from tests.conftest import (
     ADMIN_PASSWORD,
 )
 import json
-from tests.course.conftest import teacher_object, student_object, section_object, course_object, attendance_object
+from tests.course.conftest import teacher_object, section_object, course_object, attendance_object
+from tests.student.conftest import student_object
 from src.course.models import Attendance
 from src.course.serializers import AttendanceSerializer
 
