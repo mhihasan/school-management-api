@@ -14,6 +14,9 @@ def upload_path(instance, filename):
 
 class Designation(TenantAwareModel):
     title = models.CharField(max_length=255)
+    def __str__(self):
+        return self.title
+    
 
 
 class Employee(User):

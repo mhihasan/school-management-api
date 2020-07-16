@@ -35,8 +35,8 @@ class Subject(TimeStampedModel):
 
 
 class Attendance(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.DO_NOTHING)
-    employee = models.ForeignKey(Employee, on_delete=models.DO_NOTHING)
+    student = models.ForeignKey(Student, on_delete=models.DO_NOTHING, null=True, blank=True)
+    employee = models.ForeignKey(Employee, on_delete=models.DO_NOTHING,  null=True, blank=True)
     date = models.DateField(auto_now_add=True)
     is_present = models.BooleanField(default=True)
 
