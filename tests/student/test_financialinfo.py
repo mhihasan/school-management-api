@@ -10,7 +10,6 @@ from tests.student.conftest import student_object,financialinfo_object
 from tests.course.conftest import course_object, section_object
 import json
 
-# imported serializer and model
 from src.student.models import FinancialInfo
 
 from src.student.serializer import FinancialInfoSerializer

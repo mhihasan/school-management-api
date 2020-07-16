@@ -9,7 +9,6 @@ from tests.conftest import (
 from tests.course.conftest import course_object, section_object
 import json
 
-# imported serializer and model
 from src.course.models import Section
 from src.course.serializers import SectionSerializer
 from src.course.models import Course
