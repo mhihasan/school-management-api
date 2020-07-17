@@ -26,7 +26,6 @@ class TestDesignationViewSet(APITestCase):
         url = "/api/v1/employee/designation/"
         data = {"title": "Assistant Teacher",  "organization": self.organization.id}
         response = self.client.post(url, data, format="json")
-        print(response.content)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Designation.objects.count(), 2)
         self.assertEqual(response.data["title"], "Assistant Teacher")
