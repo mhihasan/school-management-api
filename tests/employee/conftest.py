@@ -1,4 +1,5 @@
 from src.employee.models import Designation, Employee, Leave
+from src.employee.models import LegalInformation
 
 
 def designation_object(title, org_id):
@@ -18,3 +19,9 @@ def leave_object(employee):
         end_date="2020-04-10"
     )
 
+def legalinfo_object(employee):
+    return LegalInformation.objects.create(
+        employee=employee,
+        nid="92839423847923",
+        present_address = '[{"zilla":"Kushtia"}]'
+    )
