@@ -7,7 +7,7 @@ from tests.conftest import (
     ADMIN_PASSWORD,
 )
 import json
-from src.employee.models import Employee, Leave
+from src.employee.models import Leave
 from src.employee.serializer import LeaveSerializer
 from .conftest import designation_object, employee_object, leave_object
 
