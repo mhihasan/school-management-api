@@ -12,6 +12,9 @@ from src.employee.models import Employee
 class Course(TenantAwareModel):
     name = models.CharField(max_length=32)
 
+    def __str__(self):
+        return self.name
+
 
 class Section(TimeStampedModel):
     name = models.CharField(help_text=_("Section name"), max_length=32)
