@@ -49,8 +49,8 @@ class AttendanceViewSet(viewsets.ModelViewSet):
     serializer_class = AttendanceSerializer
     filter_backends = (SearchFilter, OrderingFilter,DjangoFilterBackend)
     common_filter = ["date","is_present", "student", "employee"]
-    search_fields = common_filter
-    ordering_fields = common_filter
+    search_fields = ["student", "employee"]
+    ordering_fields = ["date", "student", "employee"]
     filterset_fields = common_filter
 
 

@@ -23,8 +23,11 @@ class EmployeeViewSet(viewsets.ModelViewSet):
     common_filter = ["first_name", "last_name","email",
                      "date_joined","employee_type","joining_date",
                      "gender","blood_group","gross_salary","designation","sections"]
-    search_fields = common_filter
-    ordering_fields = common_filter
+    search_fields = ["email","employee_type",
+                     "gross_salary","designation"]
+    ordering_fields = ["first_name", "last_name","email",
+                     "date_joined","joining_date",
+                     "gross_salary","designation"]
     filterset_fields = common_filter
 
 
@@ -33,8 +36,8 @@ class LeaveViewSet(viewsets.ModelViewSet):
     serializer_class = LeaveSerializer
     filter_backends = (SearchFilter, OrderingFilter,DjangoFilterBackend)
     common_filter = ["employee", "leave_type","days"]
-    search_fields = common_filter
-    ordering_fields = common_filter
+    search_fields = ["employee"]
+    ordering_fields = ["employee","days"]
     filterset_fields = common_filter
 
 
