@@ -10,7 +10,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         user_attributes = {
             "first_name": user.first_name or "",
             "last_name": user.last_name or "",
-            "is_teacher": user.is_teacher,
             "is_guardian": user.is_guardian,
             "is_admin_staff": user.is_admin_staff,
             "is_superuser": user.is_superuser,
