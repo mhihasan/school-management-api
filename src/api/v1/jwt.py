@@ -13,6 +13,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
             "is_guardian": user.is_guardian,
             "is_admin_staff": user.is_admin_staff,
             "is_superuser": user.is_superuser,
+            "organization": user.organization.id,
         }
 
         for k, v in user_attributes.items():

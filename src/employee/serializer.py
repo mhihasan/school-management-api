@@ -11,7 +11,7 @@ from .models import Designation
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
-        exclude = ("is_staff","is_active","is_guardian","organization","password","last_login","is_superuser")
+        exclude = ("is_staff","is_active","is_guardian","password","last_login","is_superuser")
 
 
 class LeaveSerializer(serializers.ModelSerializer):
