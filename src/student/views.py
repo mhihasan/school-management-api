@@ -18,7 +18,7 @@ class StudentViewSet(viewsets.ModelViewSet):
     serializer_class = StudentSerializer
     filter_backends = (SearchFilter, OrderingFilter,DjangoFilterBackend)
     common_filter = ["gender", "roll_no","organization", "section"]
-    search_fields = ["roll_no","organization"]
+    search_fields = ("roll_no","organization")
     ordering_fields = ["roll_no", "section"]
     filterset_fields = common_filter
 
@@ -37,7 +37,7 @@ class GuardianInfoViewSet(viewsets.ModelViewSet):
     serializer_class = GuardianInfoSerializer
     filter_backends = (SearchFilter, OrderingFilter,DjangoFilterBackend)
     common_filter = ["first_name", "last_name", "email", "is_active", "is_guardian", "relationship", "student"]
-    search_fields = ["email"]
+    search_fields = ("email",)
     ordering_fields = ["first_name", "email", "relationship","student"]
     filterset_fields = [ "email", "is_active", "is_guardian", "relationship", "student"]
 

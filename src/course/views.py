@@ -19,7 +19,7 @@ class CourseViewSet(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
     filter_backends = (SearchFilter, OrderingFilter,DjangoFilterBackend)
     common_filter = ["name","organization"]
-    search_fields = common_filter
+    search_fields = ("name","organization")
     ordering_fields = common_filter
     filterset_fields = common_filter
 
@@ -29,7 +29,7 @@ class SubjectViewSet(viewsets.ModelViewSet):
     serializer_class = SubjectSerializer
     filter_backends = (SearchFilter, OrderingFilter,DjangoFilterBackend)
     common_filter = ["name", "course", "teacher"]
-    search_fields = common_filter
+    search_fields = ("name", "course", "teacher")
     ordering_fields = common_filter
     filterset_fields = common_filter
 
@@ -39,7 +39,7 @@ class SectionViewSet(viewsets.ModelViewSet):
     serializer_class = SectionSerializer
     filter_backends = (SearchFilter, OrderingFilter,DjangoFilterBackend)
     common_filter = ["name", "course"]
-    search_fields = common_filter
+    search_fields = ("name", "course")
     ordering_fields = common_filter
     filterset_fields = common_filter
 
@@ -49,7 +49,7 @@ class AttendanceViewSet(viewsets.ModelViewSet):
     serializer_class = AttendanceSerializer
     filter_backends = (SearchFilter, OrderingFilter,DjangoFilterBackend)
     common_filter = ["date","is_present", "student", "employee"]
-    search_fields = ["student", "employee"]
+    search_fields = ("student", "employee")
     ordering_fields = ["date", "student", "employee"]
     filterset_fields = common_filter
 

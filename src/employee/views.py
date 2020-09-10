@@ -23,8 +23,8 @@ class EmployeeViewSet(viewsets.ModelViewSet):
     common_filter = ["first_name", "last_name","email",
                      "date_joined","employee_type","joining_date",
                      "gender","blood_group","gross_salary","designation","sections"]
-    search_fields = ["email","employee_type",
-                     "gross_salary","designation"]
+    search_fields = ("email","employee_type",
+                     "gross_salary","designation")
     ordering_fields = ["first_name", "last_name","email",
                      "date_joined","joining_date",
                      "gross_salary","designation"]
@@ -36,7 +36,7 @@ class LeaveViewSet(viewsets.ModelViewSet):
     serializer_class = LeaveSerializer
     filter_backends = (SearchFilter, OrderingFilter,DjangoFilterBackend)
     common_filter = ["employee", "leave_type","days"]
-    search_fields = ["employee"]
+    search_fields = ("employee",)
     ordering_fields = ["employee","days"]
     filterset_fields = common_filter
 
@@ -46,7 +46,7 @@ class LegalInfoViewSet(viewsets.ModelViewSet):
     serializer_class = LegalInformationSerializer
     filter_backends = (SearchFilter, OrderingFilter,DjangoFilterBackend)
     common_filter = ["employee","nid"]
-    search_fields = common_filter
+    search_fields = ("employee","nid")
     ordering_fields = common_filter
     filterset_fields = common_filter
 
@@ -56,7 +56,7 @@ class DesignationViewSet(viewsets.ModelViewSet):
     serializer_class = DesignationSerializer
     filter_backends = (SearchFilter, OrderingFilter,DjangoFilterBackend)
     common_filter = ["title", "organization"]
-    search_fields = common_filter
+    search_fields = ("title", "organization")
     ordering_fields = common_filter
     filterset_fields = common_filter
 
