@@ -84,6 +84,9 @@ venv/
 # Environment Variable file
 .env
 
+# config file
+conf/.env.docker.prod
+
 # application folders
 static/
 media/
