@@ -1,17 +1,12 @@
-# from django.shortcuts import render
 from rest_framework import viewsets
-from rest_framework import generics
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 
-# imported model here
 from .models import Course, Subject, Section, Attendance
 
-# imported Serializer 
+
 from .serializers import CourseSerializer, SubjectSerializer, SectionSerializer
 from .serializers import AttendanceSerializer
-
-# Create your views here.
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -19,7 +14,7 @@ class CourseViewSet(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
     filter_backends = (SearchFilter, OrderingFilter,DjangoFilterBackend)
     common_filter = ["name","organization"]
-    search_fields = ("name","organization")
+    search_fields = ("name",)
     ordering_fields = common_filter
     filterset_fields = common_filter
 
@@ -29,8 +24,8 @@ class SubjectViewSet(viewsets.ModelViewSet):
     serializer_class = SubjectSerializer
     filter_backends = (SearchFilter, OrderingFilter,DjangoFilterBackend)
     common_filter = ["name", "course", "teacher"]
-    search_fields = ("name", "course", "teacher")
-    ordering_fields = common_filter
+    search_fields = ("name",)
+    ordering_fields = ["name",]
     filterset_fields = common_filter
 
 
@@ -39,8 +34,8 @@ class SectionViewSet(viewsets.ModelViewSet):
     serializer_class = SectionSerializer
     filter_backends = (SearchFilter, OrderingFilter,DjangoFilterBackend)
     common_filter = ["name", "course"]
-    search_fields = ("name", "course")
-    ordering_fields = common_filter
+    search_fields = ("name", )
+    ordering_fields = ("name", )
     filterset_fields = common_filter
 
 
@@ -49,8 +44,7 @@ class AttendanceViewSet(viewsets.ModelViewSet):
     serializer_class = AttendanceSerializer
     filter_backends = (SearchFilter, OrderingFilter,DjangoFilterBackend)
     common_filter = ["date","is_present", "student", "employee"]
-    search_fields = ("student", "employee")
-    ordering_fields = ["date", "student", "employee"]
+    ordering_fields = ["date",]
     filterset_fields = common_filter
 
 
