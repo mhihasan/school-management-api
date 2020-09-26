@@ -3,6 +3,7 @@ import logging
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import viewsets
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 
 from src.accounting.constants import (
@@ -15,6 +16,7 @@ from src.accounting.constants import (
 from src.accounting.models import (
     AccountGroup,
     Account,
+    StudentFee
 )
 from src.api.v1.paginations import LimitOffsetUnlimitedDefaultPagination
 from src.api.v1.viewsets import BaseViewSet
@@ -25,6 +27,15 @@ from .helpers import generate_gl_code
 console = logging.getLogger("console")
 error_logger = logging.getLogger("accounting.error")
 warning_logger = logging.getLogger("accounting.warning")
+
+
+class StudentFeeViewSet(viewsets.ModelViewSet):
+    queryset = StudentFee.objects.all()
+    serializer_class = serializers.StudentFeeSerializer
+    filter_backends = (SearchFilter, OrderingFilter, DjangoFilterBackend)
+    search_fields = ("name",)
+    ordering_fields = ["name", "amount"]
+    filterset_fields = ["name", ]
 
 
 class AccountGroupViewSet(viewsets.ModelViewSet):

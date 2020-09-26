@@ -8,8 +8,15 @@ from src.accounting.models import (
     Journal,
     Invoice,
     Payment,
+    StudentFee,
 )
 from src.api.v1.validators import UniqueTogetherFieldValidator
+
+
+class StudentFeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StudentFee
+        fields = "__all__"
 
 
 class TransactionSerializer(serializers.ModelSerializer):

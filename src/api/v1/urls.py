@@ -8,7 +8,7 @@ from src.organization import views as organization
 from src.user import views as user
 from src.course import views as course
 from src.employee import views as emp
-from src.student import  views as student
+from src.student import views as student
 
 router = DefaultRouter()
 
@@ -39,7 +39,9 @@ router.register('employee',emp.EmployeeViewSet),
 # Student
 router.register('student/guadianinfo', student.GuardianInfoViewSet)
 router.register('student/financialinfo', student.FinancialInfoViewSet)
+router.register('student/fee', acc.StudentFeeViewSet)
 router.register('student',student.StudentViewSet)
+
 
 
 # router.register("journal-entries", acc.JournalViewSet, "journal-entry")
