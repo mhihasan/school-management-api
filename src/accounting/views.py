@@ -35,7 +35,7 @@ class StudentFeeViewSet(viewsets.ModelViewSet):
     filter_backends = (SearchFilter, OrderingFilter, DjangoFilterBackend)
     search_fields = ("name",)
     ordering_fields = ["name", "amount"]
-    filterset_fields = ["name", ]
+    filterset_fields = ["name", "organization"]
 
 
 class AccountGroupViewSet(viewsets.ModelViewSet):
