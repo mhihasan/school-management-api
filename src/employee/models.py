@@ -9,7 +9,7 @@ from src.user.models import User
 
 
 def upload_path(instance, filename):
-    return "/".join(["employee", str(instance.title), filename])
+    return "/".join(["employee", filename])
 
 
 class Designation(TenantAwareModel):
