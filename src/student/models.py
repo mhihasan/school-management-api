@@ -10,6 +10,10 @@ from src.organization.models import TenantAwareModel
 from src.user.models import User
 
 
+def upload_path_student(instance, filename):
+    return "/".join(["student", filename])
+
+
 class Student(TenantAwareModel):
     GENDER = ((0, "Male"), (1, "Female"), (3, "Others"))
     first_name = models.CharField(_("first name"), max_length=150)
@@ -20,6 +24,7 @@ class Student(TenantAwareModel):
     present_address = JSONField()
     permanent_address = JSONField(default=dict)
     additional_info = JSONField(default=dict)
+    photo = models.ImageField(blank=True, null=True, upload_to=upload_path_student)
     fees = models.ManyToManyField(
         "accounting.StudentFee", through="student.FinancialInfo"
     )
