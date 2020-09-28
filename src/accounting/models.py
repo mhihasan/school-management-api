@@ -23,6 +23,9 @@ class StudentFee(TenantAwareModel):
     name = models.CharField(max_length=150)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
 
+    def __str__(self):
+        return self.name
+
 
 class AccountGroup(models.Model):
     code = models.PositiveIntegerField(default=0, unique=True)
