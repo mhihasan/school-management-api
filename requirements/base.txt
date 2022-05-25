@@ -25,7 +25,7 @@ Pillow==9.0.1
 pluggy==0.13.1
 psycopg2-binary==2.8.5
 py==1.10.0
-PyJWT==1.7.1
+PyJWT==2.4.0
 pyparsing==2.4.6
 pytz==2019.3
 requests==2.23.0
